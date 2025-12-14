@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Are You Not Who You Were at 5?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --synapse-new: #00E5FF;
+            --synapse-strong: #76FF03;
+            --synapse-weak: #FF6E40;
+            --pruned: #78909C;
+            --sensitive: #EA80FC;
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a25;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --border: #2a2a3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: radial-gradient(ellipse, rgba(0, 229, 255, 0.15) 0%, rgba(234, 128, 252, 0.1) 50%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .module-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--synapse-new);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--synapse-new), var(--sensitive));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Learning Objectives */
+        .objectives {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .objectives h2 {
+            font-size: 1.1rem;
+            color: var(--synapse-new);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .objectives ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
+        .objectives li {
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .objectives li::before {
+            content: '🌱';
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        /* Section styling */
+        .section-header {
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* The Hook Section */
+        .hook-section {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(234, 128, 252, 0.1));
+            border: 1px solid var(--synapse-new);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .hook-stat {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--synapse-new);
+            margin-bottom: 10px;
+        }
+
+        .hook-question {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .hook-answer {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 850px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .hook-answer strong {
+            color: var(--sensitive);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .timeline-container {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-track {
+            height: 8px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+            position: relative;
+            margin: 60px 0 80px;
+        }
+
+        .timeline-fill {
+            position: absolute;
+            height: 100%;
+            border-radius: 4px;
+            transition: all 0.5s ease;
+        }
+
+        .timeline-markers {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .timeline-marker {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .marker-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-elevated);
+            border: 3px solid var(--border);
+            margin: 0 auto 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-marker.active .marker-dot {
+            background: var(--synapse-new);
+            border-color: var(--synapse-new);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+
+        .timeline-marker:hover .marker-dot {
+            border-color: var(--synapse-new);
+        }
+
+        .marker-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .timeline-marker.active .marker-label {
+            color: var(--text-primary);
+        }
+
+        .marker-age {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .timeline-info {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 30px;
+            min-height: 200px;
+        }
+
+        .info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .info-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .synapse-count {
+            text-align: right;
+        }
+
+        .synapse-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--synapse-new);
+        }
+
+        .synapse-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .info-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .info-qualia {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--sensitive);
+        }
+
+        .qualia-label {
+            font-size: 0.75rem;
+            color: var(--sensitive);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .qualia-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* Synapse Visualization */
+        .synapse-viz {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            min-height: 60px;
+            align-items: center;
+        }
+
+        .synapse-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .synapse-dot.active {
+            background: var(--synapse-strong);
+            box-shadow: 0 0 8px rgba(118, 255, 3, 0.5);
+        }
+
+        .synapse-dot.weak {
+            background: var(--synapse-weak);
+            opacity: 0.6;
+        }
+
+        .synapse-dot.pruned {
+            background: var(--pruned);
+            opacity: 0.3;
+        }
+
+        /* Use It or Lose It Section */
+        .use-it-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, rgba(118, 255, 3, 0.1), rgba(255, 110, 64, 0.1));
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .principle-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--synapse-strong), var(--synapse-weak));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .principle-explanation {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .hebbian-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .hebbian-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hebbian-card {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+            border: 2px solid var(--border);
+        }
+
+        .hebbian-card.strengthen {
+            border-color: var(--synapse-strong);
+        }
+
+        .hebbian-card.weaken {
+            border-color: var(--synapse-weak);
+        }
+
+        .hebbian-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hebbian-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hebbian-card.strengthen .hebbian-title {
+            color: var(--synapse-strong);
+        }
+
+        .hebbian-card.weaken .hebbian-title {
+            color: var(--synapse-weak);
+        }
+
+        .hebbian-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Sensitive Periods Section */
+        .sensitive-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .sensitive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .sensitive-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sensitive-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--sensitive), transparent);
+        }
+
+        .sensitive-card:hover {
+            border-color: var(--sensitive);
+            transform: translateY(-3px);
+        }
+
+        .sensitive-card.active {
+            border-color: var(--sensitive);
+            background: rgba(234, 128, 252, 0.05);
+        }
+
+        .sensitive-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .sensitive-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+        }
+
+        .sensitive-window {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--sensitive);
+            margin-bottom: 10px;
+        }
+
+        .sensitive-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .sensitive-detail {
+            display: none;
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 25px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .sensitive-detail.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .detail-panel {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .detail-panel-title {
+            font-size: 0.85rem;
+            color: var(--synapse-new);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .detail-panel-content {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* What You Lost Section */
+        .lost-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .lost-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .lost-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .lost-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .lost-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--pruned);
+        }
+
+        .lost-explanation {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .lost-qualia {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Genie Case Study */
+        .case-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .case-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .case-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .case-summary {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .case-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .case-subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .case-facts {
+            list-style: none;
+        }
+
+        .case-facts li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .case-facts li:last-child {
+            border-bottom: none;
+        }
+
+        .case-facts strong {
+            color: var(--text-primary);
+        }
+
+        .case-analysis {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .analysis-section {
+            margin-bottom: 25px;
+        }
+
+        .analysis-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .analysis-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--sensitive);
+        }
+
+        .analysis-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Key Insight Box */
+        .insight-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--synapse-new);
+            border-radius: 0 12px 12px 0;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .insight-box h3 {
+            font-size: 1rem;
+            color: var(--synapse-new);
+            margin-bottom: 10px;
+        }
+
+        .insight-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Interactive Pruning Simulation */
+        .sim-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .sim-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .sim-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sim-controls {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .sim-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .activity-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .activity-slider {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .slider-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .slider-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--synapse-new);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--synapse-new);
+            cursor: grab;
+        }
+
+        .sim-output {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .network-display {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .neuron-group {
+            text-align: center;
+        }
+
+        .neuron-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .neuron-synapses {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .mini-synapse {
+            width: 30px;
+            height: 6px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .sim-result {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .result-title {
+            font-size: 0.85rem;
+            color: var(--sensitive);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .result-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Qualia Reflection Section */
+        .qualia-section {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(234, 128, 252, 0.1));
+            border: 1px solid var(--synapse-new);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .qualia-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--synapse-new);
+        }
+
+        .qualia-intro {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .qualia-prompts {
+            display: grid;
+            gap: 25px;
+        }
+
+        .qualia-prompt {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .prompt-part {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--sensitive);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .prompt-question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .prompt-subquestions {
+            list-style: none;
+        }
+
+        .prompt-subquestions li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .prompt-subquestions li::before {
+            content: '🌱';
+            position: absolute;
+            left: 0;
+            font-size: 0.7rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="module-tag">Neuroscience • Module 1 • Herr Prof. Dr. Awesome-Sauce</div>
+            <h1>Why Are You Not Who You Were at 5?</h1>
+            <p class="subtitle">Your brain at age 2 had 50% MORE synapses than it does now. You've lost neural connections—yet you're smarter. What does this mean for who you are and who you could have been?</p>
+        </header>
+
+        <!-- Learning Objectives -->
+        <section class="objectives">
+            <h2>🎯 Learning Objectives</h2>
+            <ul>
+                <li>Describe synaptogenesis and synaptic pruning across development</li>
+                <li>Explain the "use it or lose it" principle and Hebbian learning</li>
+                <li>Identify sensitive periods and their role in shaping abilities</li>
+                <li>Connect developmental neuroscience to subjective experience</li>
+                <li>Reflect on how pruning sculpted your current qualia</li>
+            </ul>
+        </section>
+
+        <!-- The Hook -->
+        <section class="hook-section">
+            <div class="hook-stat">~50% Gone</div>
+            <div class="hook-question">You have FEWER synapses now than when you were a toddler.</div>
+            <p class="hook-answer">Between ages 2-3, your brain had roughly <strong>1 quadrillion synapses</strong>—50% more than you have now. Through a process called synaptic pruning, your brain eliminated connections it didn't need. This sounds like loss. But it's actually how you became YOU. <strong>The synapses that survived are the ones that were used. The skills that feel "natural" to you? Those pathways won the competition. The abilities you struggle with? Those circuits may have been pruned before you ever used them.</strong></p>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="section-header">
+                <h2>📈 The Rise and Fall of Synapses</h2>
+                <p>Click each stage to explore synapse density and what it means for experience</p>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-markers">
+                    <div class="timeline-marker active" onclick="selectStage('prenatal')">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">Prenatal</div>
+                        <div class="marker-age">-9 to 0 mo</div>
+                    </div>
+                    <div class="timeline-marker" onclick="selectStage('infant')">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">Infancy</div>
+                        <div class="marker-age">0-2 years</div>
+                    </div>
+                    <div class="timeline-marker" onclick="selectStage('toddler')">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">Peak Density</div>
+                        <div class="marker-age">2-3 years</div>
+                    </div>
+                    <div class="timeline-marker" onclick="selectStage('childhood')">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">Childhood</div>
+                        <div class="marker-age">3-12 years</div>
+                    </div>
+                    <div class="timeline-marker" onclick="selectStage('adolescent')">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">Adolescence</div>
+                        <div class="marker-age">12-25 years</div>
+                    </div>
+                    <div class="timeline-marker" onclick="selectStage('adult')">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">Adulthood</div>
+                        <div class="marker-age">25+ years</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-info" id="timeline-info">
+                <div class="info-header">
+                    <div class="info-title" id="stage-title">Prenatal Development</div>
+                    <div class="synapse-count">
+                        <div class="synapse-number" id="synapse-count">~100 billion</div>
+                        <div class="synapse-label">neurons forming</div>
+                    </div>
+                </div>
+                
+                <div class="synapse-viz" id="synapse-viz">
+                    <!-- Filled by JavaScript -->
+                </div>
+
+                <p class="info-content" id="stage-content">
+                    Neurons are born at a rate of 250,000 per minute during peak production. They migrate to their destinations and begin forming connections. By birth, almost all the neurons you'll ever have are already present—but the synapses are just beginning.
+                </p>
+
+                <div class="info-qualia">
+                    <div class="qualia-label">Developmental Qualia</div>
+                    <p class="qualia-text" id="stage-qualia">
+                        The fetus can already hear, responding to mother's voice. These early auditory experiences are literally shaping which synapses survive. Your preference for certain sounds may have begun before you were born.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use It or Lose It Section -->
+        <section class="use-it-section">
+            <div class="section-header">
+                <h2>⚡ The Competition for Survival</h2>
+                <p>Synapses compete for limited resources—only the active ones survive</p>
+            </div>
+
+            <div class="principle-box">
+                <div class="principle-title">"Neurons that fire together, wire together"</div>
+                <p class="principle-explanation">This is Hebb's Rule: when two neurons are active at the same time repeatedly, the connection between them strengthens. Connections that aren't used weaken and eventually get pruned. Your brain is constantly asking: "Is this connection useful?" If the answer is no, it's eliminated to save resources.</p>
+            </div>
+
+            <div class="hebbian-grid">
+                <div class="hebbian-card strengthen">
+                    <div class="hebbian-icon">💪</div>
+                    <div class="hebbian-title">Strengthening (LTP)</div>
+                    <p class="hebbian-desc">When you practice piano, the neurons controlling finger movements fire together repeatedly. These synapses strengthen through Long-Term Potentiation. More receptors are added. The connection becomes faster and more reliable. Eventually, playing feels "automatic"—because the circuit is now highly efficient.</p>
+                </div>
+
+                <div class="hebbian-card weaken">
+                    <div class="hebbian-icon">📉</div>
+                    <div class="hebbian-title">Weakening & Pruning (LTD)</div>
+                    <p class="hebbian-desc">Connections that aren't used undergo Long-Term Depression—they weaken over time. Eventually, unused synapses are tagged for elimination by microglia (the brain's cleanup crew). The resources are reallocated to connections that ARE being used. This is efficient, but irreversible.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sensitive Periods Section -->
+        <section class="sensitive-section">
+            <div class="section-header">
+                <h2>🚪 Windows That Close: Sensitive Periods</h2>
+                <p>For certain abilities, there's a "now or never" window when learning is easy—or even possible</p>
+            </div>
+
+            <div class="sensitive-grid">
+                <div class="sensitive-card active" onclick="selectSensitive('language')">
+                    <div class="sensitive-icon">🗣️</div>
+                    <div class="sensitive-title">Language Acquisition</div>
+                    <div class="sensitive-window">Window: Birth – ~7 years (grammar), ~12 years (accent)</div>
+                    <p class="sensitive-desc">Children learn languages effortlessly. Adults struggle. The window closes gradually.</p>
+                </div>
+
+                <div class="sensitive-card" onclick="selectSensitive('vision')">
+                    <div class="sensitive-icon">👁️</div>
+                    <div class="sensitive-title">Visual System</div>
+                    <div class="sensitive-window">Window: Birth – ~8 years</div>
+                    <p class="sensitive-desc">If one eye is deprived of input, that eye's cortical connections are pruned permanently.</p>
+                </div>
+
+                <div class="sensitive-card" onclick="selectSensitive('music')">
+                    <div class="sensitive-icon">🎵</div>
+                    <div class="sensitive-title">Absolute Pitch</div>
+                    <div class="sensitive-window">Window: ~3-6 years</div>
+                    <p class="sensitive-desc">The ability to identify any musical note without reference. Almost impossible to acquire after age 6.</p>
+                </div>
+
+                <div class="sensitive-card" onclick="selectSensitive('attachment')">
+                    <div class="sensitive-icon">💕</div>
+                    <div class="sensitive-title">Attachment</div>
+                    <div class="sensitive-window">Window: Birth – ~3 years</div>
+                    <p class="sensitive-desc">Early caregiver interactions shape the oxytocin system and attachment circuitry for life.</p>
+                </div>
+            </div>
+
+            <div class="sensitive-detail active" id="detail-language">
+                <div class="detail-grid">
+                    <div class="detail-panel">
+                        <div class="detail-panel-title">What's Happening Neurally</div>
+                        <p class="detail-panel-content">Infant brains can distinguish ALL phonemes from ALL languages—about 600 consonants and 200 vowels. By 12 months, this narrows to only the sounds in languages they've heard. The unused phoneme-detecting circuits are pruned. A Japanese infant can hear the difference between "R" and "L." A Japanese adult often cannot—those circuits were eliminated.</p>
+                    </div>
+                    <div class="detail-panel">
+                        <div class="detail-panel-title">The Qualia Consequence</div>
+                        <p class="detail-panel-content">Learning a second language as an adult feels HARD in a way it didn't as a child. This isn't just psychological—it's structural. The circuits that would have made it easy no longer exist. You're trying to learn with less specialized hardware. The grammar "rules" that children absorb implicitly must be memorized explicitly. It literally feels different because it IS different neurally.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sensitive-detail" id="detail-vision">
+                <div class="detail-grid">
+                    <div class="detail-panel">
+                        <div class="detail-panel-title">What's Happening Neurally</div>
+                        <p class="detail-panel-content">Visual cortex organization depends on input from both eyes. If one eye is blocked (by cataracts, for example), that eye's connections to visual cortex are pruned. The other eye "takes over" the cortical space. After the sensitive period, even if the cataract is removed, the eye remains functionally blind—the brain can't process its input because the circuits were pruned.</p>
+                    </div>
+                    <div class="detail-panel">
+                        <div class="detail-panel-title">The Qualia Consequence</div>
+                        <p class="detail-panel-content">People who gain sight after the sensitive period often struggle to interpret what they see. They can detect light and color, but faces look like meaningless patterns. Depth perception may never develop. The visual qualia that sighted people take for granted—recognizing objects instantly, seeing 3D space—require circuits that must be built during the sensitive period or not at all.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sensitive-detail" id="detail-music">
+                <div class="detail-grid">
+                    <div class="detail-panel">
+                        <div class="detail-panel-title">What's Happening Neurally</div>
+                        <p class="detail-panel-content">Absolute pitch requires specific connections between auditory cortex and memory systems that map frequencies to note names. This mapping is established during early childhood musical training. After about age 6, the circuits that would have enabled this become pruned if unused. Some researchers believe it requires both genetic predisposition AND early training during the window.</p>
+                    </div>
+                    <div class="detail-panel">
+                        <div class="detail-panel-title">The Qualia Consequence</div>
+                        <p class="detail-panel-content">For someone with absolute pitch, hearing a note and knowing it's "F#" is automatic—like seeing red and knowing it's red. For everyone else, pitch is relative; you need a reference note to identify others. No amount of adult training produces the same effortless qualia. The window closed. You can develop relative pitch, but absolute pitch is (probably) gone forever.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sensitive-detail" id="detail-attachment">
+                <div class="detail-grid">
+                    <div class="detail-panel">
+                        <div class="detail-panel-title">What's Happening Neurally</div>
+                        <p class="detail-panel-content">Early caregiver interactions shape the developing oxytocin and stress-response systems. Consistent, responsive caregiving builds dense connections that support secure attachment. Neglect or trauma during this period can result in altered oxytocin receptor density, hyperactive stress responses, and pruning of social-bonding circuits. The HPA axis is calibrated based on early experience.</p>
+                    </div>
+                    <div class="detail-panel">
+                        <div class="detail-panel-title">The Qualia Consequence</div>
+                        <p class="detail-panel-content">Attachment style shapes what relationships FEEL like from the inside. Secure attachment: connection feels safe, natural. Anxious attachment: constant fear of abandonment, relationships feel precarious. Avoidant attachment: closeness feels suffocating. These aren't just beliefs—they're wired into how the brain processes social information. Change is possible but difficult; you're working against hardware established during the sensitive period.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What You Lost Section -->
+        <section class="lost-section">
+            <div class="section-header">
+                <h2>👻 The Ghosts of Who You Could Have Been</h2>
+                <p>Every pruned synapse represents a path not taken—an ability you'll never have</p>
+            </div>
+
+            <div class="lost-examples">
+                <div class="lost-card">
+                    <div class="lost-icon">🇯🇵</div>
+                    <div class="lost-title">Native-Level Pronunciation</div>
+                    <p class="lost-explanation">The phonemes you didn't hear as an infant are now harder to produce. Your accent in second languages reveals which sound-production circuits were pruned.</p>
+                    <p class="lost-qualia">"I can learn Japanese vocabulary, but native speakers always hear my accent. That ease of pronunciation is gone."</p>
+                </div>
+
+                <div class="lost-card">
+                    <div class="lost-icon">🎹</div>
+                    <div class="lost-title">Effortless Perfect Pitch</div>
+                    <p class="lost-explanation">Without musical training before ~6, the circuits for absolute pitch are pruned. You can develop good relative pitch, but the effortless version is unavailable.</p>
+                    <p class="lost-qualia">"Musicians who have it say naming notes is like naming colors. For me, it takes conscious effort. Different qualia entirely."</p>
+                </div>
+
+                <div class="lost-card">
+                    <div class="lost-icon">🤸</div>
+                    <div class="lost-title">Childhood Physical Fearlessness</div>
+                    <p class="lost-explanation">Young children's brains haven't fully developed risk-assessment circuits. Combined with physical flexibility, this allows learning movements adults find terrifying.</p>
+                    <p class="lost-qualia">"Watching kids do gymnastics, I remember when falling didn't scare me. That fearlessness isn't just psychological—it's structural."</p>
+                </div>
+
+                <div class="lost-card">
+                    <div class="lost-icon">🧠</div>
+                    <div class="lost-title">Rapid Pattern Acquisition</div>
+                    <p class="lost-explanation">Children absorb patterns (grammar, social rules, game mechanics) implicitly. Adult learning is more explicit, effortful, and slow. The difference is pruning.</p>
+                    <p class="lost-qualia">"My kids learn TikTok dances by watching. I need step-by-step instructions. Same dance, completely different learning experience."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Study: Genie -->
+        <section class="case-section">
+            <div class="section-header">
+                <h2>📋 Case Study: What Happens When Windows Close</h2>
+                <p>The tragic case of "Genie" revealed the reality of sensitive periods</p>
+            </div>
+
+            <div class="case-content">
+                <div class="case-summary">
+                    <div class="case-name">Genie (pseudonym)</div>
+                    <div class="case-subtitle">Discovered 1970 • Los Angeles</div>
+                    
+                    <ul class="case-facts">
+                        <li><strong>Isolation:</strong> Confined to a room from age ~20 months to 13 years</li>
+                        <li><strong>Language exposure:</strong> Almost none during isolation</li>
+                        <li><strong>Discovery:</strong> Could not speak, walk properly, or control bowels</li>
+                        <li><strong>Intervention:</strong> Intensive therapy and care after rescue</li>
+                        <li><strong>Outcome:</strong> Learned vocabulary but never mastered grammar</li>
+                    </ul>
+                </div>
+
+                <div class="case-analysis">
+                    <div class="analysis-section">
+                        <div class="analysis-title">What Genie Could Learn</div>
+                        <p class="analysis-content">Genie acquired a large vocabulary—hundreds of words. She could combine words meaningfully: "want milk," "Genie go store." She developed social bonds and emotional expression. Her cognitive abilities improved significantly. The circuits for these functions, while affected, were not completely dependent on early experience.</p>
+                    </div>
+
+                    <div class="analysis-section">
+                        <div class="analysis-title">What Genie Could NOT Learn</div>
+                        <p class="analysis-content">Grammar never developed normally. She couldn't form proper sentences, use correct word order consistently, or grasp syntactic rules. Her speech remained telegraphic: "Applesauce buy store." Despite years of intensive training, she never achieved the grammatical competence of a typical 3-year-old. The grammar-acquisition circuits had been pruned.</p>
+                    </div>
+
+                    <div class="analysis-section">
+                        <div class="analysis-title">The Devastating Implication</div>
+                        <p class="analysis-content">Genie's case suggests there may be aspects of language—specifically syntax—that CANNOT be fully acquired after the sensitive period. The neural substrate that would have supported grammatical acquisition was eliminated when it wasn't used. No amount of later intervention could rebuild what pruning had destroyed. Her qualia of language remained fundamentally different from native speakers—words without the effortless grammar that makes them flow.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Simulation -->
+        <section class="sim-section">
+            <div class="section-header">
+                <h2>🧪 Simulate Use-It-Or-Lose-It</h2>
+                <p>Adjust activity levels and watch synaptic pruning in action</p>
+            </div>
+
+            <div class="sim-container">
+                <div class="sim-controls">
+                    <div class="sim-title">Neural Activity by Domain</div>
+                    
+                    <div class="activity-sliders">
+                        <div class="activity-slider">
+                            <div class="slider-header">
+                                <span class="slider-label">🗣️ Language Exposure</span>
+                                <span class="slider-value" id="lang-value">70%</span>
+                            </div>
+                            <input type="range" id="lang-slider" min="0" max="100" value="70" oninput="updateSimulation()">
+                        </div>
+
+                        <div class="activity-slider">
+                            <div class="slider-header">
+                                <span class="slider-label">🎵 Musical Training</span>
+                                <span class="slider-value" id="music-value">20%</span>
+                            </div>
+                            <input type="range" id="music-slider" min="0" max="100" value="20" oninput="updateSimulation()">
+                        </div>
+
+                        <div class="activity-slider">
+                            <div class="slider-header">
+                                <span class="slider-label">🏃 Motor Practice</span>
+                                <span class="slider-value" id="motor-value">60%</span>
+                            </div>
+                            <input type="range" id="motor-slider" min="0" max="100" value="60" oninput="updateSimulation()">
+                        </div>
+
+                        <div class="activity-slider">
+                            <div class="slider-header">
+                                <span class="slider-label">🔢 Math/Logic</span>
+                                <span class="slider-value" id="math-value">50%</span>
+                            </div>
+                            <input type="range" id="math-slider" min="0" max="100" value="50" oninput="updateSimulation()">
+                        </div>
+
+                        <div class="activity-slider">
+                            <div class="slider-header">
+                                <span class="slider-label">👥 Social Interaction</span>
+                                <span class="slider-value" id="social-value">80%</span>
+                            </div>
+                            <input type="range" id="social-slider" min="0" max="100" value="80" oninput="updateSimulation()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sim-output">
+                    <div class="sim-title">Resulting Synaptic Landscape (After Pruning)</div>
+                    
+                    <div class="network-display" id="network-display">
+                        <!-- Filled by JavaScript -->
+                    </div>
+
+                    <div class="sim-result">
+                        <div class="result-title">Your Brain's Specialization</div>
+                        <p class="result-text" id="sim-result">
+                            Strong language and social circuits. Moderate motor skills. Limited musical ability—those pathways didn't survive pruning. This person would find language-based tasks feel natural, struggle with musical training, and have typical physical coordination.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Insight -->
+        <div class="insight-box">
+            <h3>🧠 The Key Insight</h3>
+            <p>
+                <strong>You are literally sculpted by experience.</strong> The "you" reading this exists because certain synapses survived and others didn't. Your talents, your struggles, what feels "natural" versus "forced"—these aren't random. They're the result of which circuits were active during sensitive periods. The skills you never developed aren't just "things you didn't learn"—in many cases, the hardware that would have made them easy no longer exists. You're not choosing from infinite possibility; you're working with what pruning left behind. This isn't limitation—it's specialization. Your brain sacrificed flexibility for efficiency, potential for expertise. The question isn't "who could I have been?" but "who did I become, and why?"
+            </p>
+        </div>
+
+        <!-- Qualia Reflection Section -->
+        <section class="qualia-section">
+            <h2>🪞 Qualia Reflection</h2>
+            <p class="qualia-intro">Now that you understand pruning, reflect on how it shaped YOUR brain and experience.</p>
+
+            <div class="qualia-prompts">
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 1: Your Developmental Qualia</div>
+                    <div class="prompt-question">Consider what feels "natural" versus "effortful" for you:</div>
+                    <ul class="prompt-subquestions">
+                        <li>What skills feel automatic to you that others struggle with? What experiences during development might have strengthened those circuits?</li>
+                        <li>What do you struggle to learn that others find easy? Could this reflect pruned circuits?</li>
+                        <li>If you learned a second language, does it FEEL different than your first? More effortful? Less intuitive?</li>
+                        <li>What abilities do you wish you had developed earlier? Can you feel the "closed window"?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 2: Collaborative Elaboration</div>
+                    <div class="prompt-question">Compare developmental histories with your group:</div>
+                    <ul class="prompt-subquestions">
+                        <li>What early experiences might explain different skill profiles in your group?</li>
+                        <li>Do bilingual classmates describe their languages feeling different? (First language more "intuitive"?)</li>
+                        <li>Did anyone have intense early training in something (sports, music, languages)? How does that feel different now?</li>
+                        <li>How do you think your childhood environment shaped which circuits survived?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 3: Meta-Reflection</div>
+                    <div class="prompt-question">If you are the product of pruning:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Is the "you" that exists now the "real" you, or just one possible version that happened to develop?</li>
+                        <li>How does knowing about sensitive periods change how you think about talent, effort, and potential?</li>
+                        <li>What responsibility (if any) do parents and society have for what gets pruned in children's brains?</li>
+                        <li>If two people have different abilities because of different pruning, is it "fair" to compare them?</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Neuroscience • Teaching neuroscience through subjective experience • Herr Prof. Dr. Awesome-Sauce</p>
+            <p style="margin-top: 8px; font-size: 0.75rem;">You are who you are because of what survived—and what didn't.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Timeline data
+        const stages = {
+            prenatal: {
+                title: "Prenatal Development",
+                count: "~100 billion",
+                countLabel: "neurons forming",
+                content: "Neurons are born at a rate of 250,000 per minute during peak production. They migrate to their destinations and begin forming connections. By birth, almost all the neurons you'll ever have are already present—but the synapses are just beginning. Synaptogenesis (synapse formation) starts in the third trimester and accelerates dramatically after birth.",
+                qualia: "The fetus can already hear, responding to mother's voice. These early auditory experiences are literally shaping which synapses survive. Your preference for certain sounds may have begun before you were born. Newborns recognize their mother's voice—that's not learning after birth, it's prenatal wiring.",
+                synapses: { active: 15, weak: 5, pruned: 0 }
+            },
+            infant: {
+                title: "Infancy: The Explosion",
+                count: "~1,000 trillion",
+                countLabel: "synapses forming rapidly",
+                content: "Synaptogenesis goes into overdrive. New synapses form at a rate of up to 2 million per second. The brain is massively overproducing connections—far more than it will keep. This is the period of maximum plasticity. The infant brain is ready to adapt to ANY environment, ANY language, ANY culture. It hasn't yet committed to specialization.",
+                qualia: "This is why infants seem to absorb everything. They're not 'learning' in the adult sense—they're allowing experience to determine which of millions of potential circuits survive. The Japanese infant hearing both 'R' and 'L' distinctly. The baby developing depth perception from binocular input. Everything feels new because everything IS new—no predictions yet, just raw connection-building.",
+                synapses: { active: 25, weak: 15, pruned: 0 }
+            },
+            toddler: {
+                title: "Peak Density: Maximum Possibility",
+                count: "~1 quadrillion",
+                countLabel: "peak synapse count",
+                content: "Around age 2-3, synaptic density peaks at roughly 50% MORE than adult levels. This is the moment of maximum neural possibility. The brain contains circuits for virtually any skill, any language, any specialization. But resources are limited. The brain cannot maintain this many connections. Pruning begins.",
+                qualia: "Toddlers can learn anything with terrifying ease. Multiple languages without accent. Perfect pitch. Gymnastics. Social rules. They're not 'talented'—they have circuits you no longer have. The qualia of learning at this age is effortless absorption. Things just 'click' because the hardware exists to support any skill. This feels fundamentally different from adult learning.",
+                synapses: { active: 20, weak: 25, pruned: 0 }
+            },
+            childhood: {
+                title: "Childhood: Pruning Begins",
+                count: "~750 trillion",
+                countLabel: "synapses (declining)",
+                content: "Pruning accelerates. Unused connections are eliminated. Used connections are strengthened. The brain is specializing based on experience. Different cortical areas prune at different rates—visual cortex prunes earlier; prefrontal cortex continues into adulthood. The child is becoming an expert in THEIR environment at the cost of adaptability to other environments.",
+                qualia: "Some things start feeling 'natural'—these are the strengthened circuits. Other things start feeling 'hard'—circuits that weren't reinforced. A child who didn't hear tonal language starts losing the ability to distinguish tones. A child without musical training loses perfect pitch potential. The window is closing, but slowly. Effortful practice can still strengthen circuits that would otherwise be pruned.",
+                synapses: { active: 20, weak: 10, pruned: 15 }
+            },
+            adolescent: {
+                title: "Adolescence: Major Renovation",
+                count: "~500 trillion",
+                countLabel: "synapses (still pruning)",
+                content: "A second wave of major pruning, especially in prefrontal cortex (decision-making, planning, impulse control). This is why teens take risks—the circuits that would inhibit impulsivity aren't fully online yet. Meanwhile, heavily-used circuits are being myelinated (insulated for speed). The brain is finalizing its architecture.",
+                qualia: "Things that were easy as a child now feel harder. Learning a new language feels effortful in a way it didn't at 5. But other things feel more automatic—skills practiced for years now flow without thought. Identity solidifies as the brain commits to being a PARTICULAR kind of brain rather than a universal learning machine. The qualia of 'this is who I am' emerges from the pruning.",
+                synapses: { active: 18, weak: 5, pruned: 22 }
+            },
+            adult: {
+                title: "Adulthood: Specialized Efficiency",
+                count: "~500 trillion",
+                countLabel: "synapses (stable)",
+                content: "Synaptic density stabilizes at roughly half of the toddler peak. The remaining connections are strong, efficient, myelinated. The brain has sacrificed flexibility for speed and reliability. New learning is still possible but works differently—it modifies existing circuits rather than building new ones from scratch. Expertise deepens; breadth narrows.",
+                qualia: "The adult brain has committed. What feels 'natural' now is largely fixed. New learning feels effortful because it's fighting against established patterns rather than building on undifferentiated potential. The qualia of being 'good at X' versus 'bad at Y' are structural realities, not just self-beliefs. You are the survivor of a pruning process that eliminated most of who you could have been.",
+                synapses: { active: 20, weak: 2, pruned: 23 }
+            }
+        };
+
+        function selectStage(stageId) {
+            // Update markers
+            document.querySelectorAll('.timeline-marker').forEach(marker => marker.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Update content
+            const data = stages[stageId];
+            document.getElementById('stage-title').textContent = data.title;
+            document.getElementById('synapse-count').textContent = data.count;
+            document.querySelector('.synapse-label').textContent = data.countLabel;
+            document.getElementById('stage-content').textContent = data.content;
+            document.getElementById('stage-qualia').textContent = data.qualia;
+
+            // Update visualization
+            updateSynapseViz(data.synapses);
+        }
+
+        function updateSynapseViz(synapses) {
+            const container = document.getElementById('synapse-viz');
+            container.innerHTML = '';
+
+            for (let i = 0; i < synapses.active; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'synapse-dot active';
+                container.appendChild(dot);
+            }
+            for (let i = 0; i < synapses.weak; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'synapse-dot weak';
+                container.appendChild(dot);
+            }
+            for (let i = 0; i < synapses.pruned; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'synapse-dot pruned';
+                container.appendChild(dot);
+            }
+        }
+
+        // Initialize timeline
+        updateSynapseViz(stages.prenatal.synapses);
+
+        // Sensitive periods
+        function selectSensitive(id) {
+            document.querySelectorAll('.sensitive-card').forEach(card => card.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            document.querySelectorAll('.sensitive-detail').forEach(detail => detail.classList.remove('active'));
+            document.getElementById('detail-' + id).classList.add('active');
+        }
+
+        // Simulation
+        function updateSimulation() {
+            const lang = parseInt(document.getElementById('lang-slider').value);
+            const music = parseInt(document.getElementById('music-slider').value);
+            const motor = parseInt(document.getElementById('motor-slider').value);
+            const math = parseInt(document.getElementById('math-slider').value);
+            const social = parseInt(document.getElementById('social-slider').value);
+
+            // Update value displays
+            document.getElementById('lang-value').textContent = lang + '%';
+            document.getElementById('music-value').textContent = music + '%';
+            document.getElementById('motor-value').textContent = motor + '%';
+            document.getElementById('math-value').textContent = math + '%';
+            document.getElementById('social-value').textContent = social + '%';
+
+            // Update network display
+            const display = document.getElementById('network-display');
+            display.innerHTML = '';
+
+            const domains = [
+                { name: 'Language', value: lang, icon: '🗣️' },
+                { name: 'Music', value: music, icon: '🎵' },
+                { name: 'Motor', value: motor, icon: '🏃' },
+                { name: 'Math', value: math, icon: '🔢' },
+                { name: 'Social', value: social, icon: '👥' }
+            ];
+
+            domains.forEach(domain => {
+                const group = document.createElement('div');
+                group.className = 'neuron-group';
+                
+                const label = document.createElement('div');
+                label.className = 'neuron-label';
+                label.textContent = domain.icon;
+                group.appendChild(label);
+
+                const synapses = document.createElement('div');
+                synapses.className = 'neuron-synapses';
+
+                // 5 synapses per domain
+                for (let i = 0; i < 5; i++) {
+                    const synapse = document.createElement('div');
+                    synapse.className = 'mini-synapse';
+                    
+                    const threshold = (5 - i) * 20; // 100, 80, 60, 40, 20
+                    if (domain.value >= threshold) {
+                        synapse.style.background = `var(--synapse-strong)`;
+                        synapse.style.opacity = '1';
+                    } else if (domain.value >= threshold - 20) {
+                        synapse.style.background = `var(--synapse-weak)`;
+                        synapse.style.opacity = '0.6';
+                    } else {
+                        synapse.style.background = `var(--pruned)`;
+                        synapse.style.opacity = '0.2';
+                    }
+                    synapses.appendChild(synapse);
+                }
+                group.appendChild(synapses);
+                display.appendChild(group);
+            });
+
+            // Generate result text
+            const strongest = domains.reduce((a, b) => a.value > b.value ? a : b);
+            const weakest = domains.reduce((a, b) => a.value < b.value ? a : b);
+
+            let resultText = '';
+            
+            if (strongest.value > 70) {
+                resultText += `Strong ${strongest.name.toLowerCase()} circuits dominate. `;
+            }
+            
+            if (weakest.value < 30) {
+                resultText += `${weakest.name} pathways were heavily pruned—learning in this domain would feel effortful. `;
+            }
+
+            // Add qualia description
+            if (lang > 70 && music < 40) {
+                resultText += "This person finds verbal expression natural but struggles to 'feel' music the way musicians do.";
+            } else if (music > 70 && lang < 50) {
+                resultText += "Music feels intuitive, almost like a native language. Verbal expression may feel less natural.";
+            } else if (social > 80) {
+                resultText += "Reading social situations feels automatic. People seem 'legible' in a way that's hard to explain.";
+            } else if (math > 70 && social < 40) {
+                resultText += "Abstract patterns are beautiful and clear. Social situations feel like solving puzzles with missing pieces.";
+            } else {
+                resultText += "A balanced profile with moderate abilities across domains. Jack of all trades, master of none—but often better than master of one.";
+            }
+
+            document.getElementById('sim-result').textContent = resultText;
+        }
+
+        // Initialize simulation
+        updateSimulation();
+    </script>
+</body>
+</html>

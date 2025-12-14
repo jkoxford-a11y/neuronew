@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Neurochemistry of Your Relationships</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --oxytocin: #FF6B9D;
+            --vasopressin: #6B8EFF;
+            --dopamine: #FFB86B;
+            --cortisol: #FF6B6B;
+            --trust: #6BFFB8;
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a25;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --border: #2a2a3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: radial-gradient(ellipse, rgba(255, 107, 157, 0.15) 0%, rgba(107, 142, 255, 0.1) 50%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .module-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--oxytocin);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--oxytocin), var(--vasopressin));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Learning Objectives */
+        .objectives {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .objectives h2 {
+            font-size: 1.1rem;
+            color: var(--oxytocin);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .objectives ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
+        .objectives li {
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .objectives li::before {
+            content: '♡';
+            position: absolute;
+            left: 0;
+            color: var(--oxytocin);
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* The Hook Section */
+        .hook-section {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(107, 142, 255, 0.1));
+            border: 1px solid var(--oxytocin);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .hook-question {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .hook-answer {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hook-answer strong {
+            color: var(--oxytocin);
+        }
+
+        /* Molecule Cards */
+        .molecule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .molecule-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .molecule-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .molecule-card.oxytocin::before {
+            background: linear-gradient(90deg, var(--oxytocin), rgba(255, 107, 157, 0.3));
+        }
+
+        .molecule-card.vasopressin::before {
+            background: linear-gradient(90deg, var(--vasopressin), rgba(107, 142, 255, 0.3));
+        }
+
+        .molecule-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .molecule-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .molecule-aka {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .molecule-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .molecule-triggers {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .triggers-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .trigger-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .trigger-tag {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        /* Interactive Scenario Section */
+        .scenario-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .scenario-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .scenario-tab {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .scenario-tab:hover {
+            border-color: var(--oxytocin);
+            color: var(--text-primary);
+        }
+
+        .scenario-tab.active {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(107, 142, 255, 0.2));
+            border-color: var(--oxytocin);
+            color: var(--text-primary);
+        }
+
+        .scenario-content {
+            display: none;
+        }
+
+        .scenario-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scenario-story {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            border-left: 4px solid var(--oxytocin);
+        }
+
+        .neurochemistry-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .chem-meter {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .chem-name {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .chem-bar-container {
+            height: 8px;
+            background: var(--bg-dark);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .chem-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .chem-level {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .qualia-description {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), transparent);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .qualia-label {
+            font-size: 0.8rem;
+            color: var(--oxytocin);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .qualia-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Polymorphism Section */
+        .polymorphism-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .gene-explorer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .gene-explorer {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .gene-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .gene-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .gene-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .gene-type {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--vasopressin);
+            background: rgba(107, 142, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .gene-function {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .variant-selector {
+            margin-bottom: 20px;
+        }
+
+        .variant-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .variant-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .variant-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .variant-btn:hover {
+            border-color: var(--oxytocin);
+        }
+
+        .variant-btn.active {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(107, 142, 255, 0.2));
+            border-color: var(--oxytocin);
+        }
+
+        .variant-btn .allele {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .variant-btn .desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .variant-result {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 120px;
+        }
+
+        .result-title {
+            font-size: 0.8rem;
+            color: var(--oxytocin);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .result-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Prairie Vole Section */
+        .vole-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .vole-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .vole-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .vole-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .vole-emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .vole-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .vole-species {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .vole-trait {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .vole-trait:last-child {
+            border-bottom: none;
+        }
+
+        .trait-name {
+            color: var(--text-secondary);
+        }
+
+        .trait-value {
+            font-weight: 600;
+        }
+
+        .vole-key-finding {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .vole-insight {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(107, 142, 255, 0.1));
+            border: 1px solid var(--oxytocin);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .vole-insight-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--oxytocin);
+        }
+
+        .vole-insight-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Attachment Style Section */
+        .attachment-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .attachment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .attachment-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .attachment-card:hover {
+            border-color: var(--oxytocin);
+            transform: translateY(-3px);
+        }
+
+        .attachment-card.active {
+            border-color: var(--oxytocin);
+            background: rgba(255, 107, 157, 0.1);
+        }
+
+        .attachment-style {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .attachment-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .attachment-qualia {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .attachment-qualia strong {
+            color: var(--oxytocin);
+            font-style: normal;
+        }
+
+        .attachment-neurochemistry {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 25px;
+            display: none;
+        }
+
+        .attachment-neurochemistry.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .attachment-neuro-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .attachment-neuro-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Key Insight Box */
+        .insight-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--oxytocin);
+            border-radius: 0 12px 12px 0;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .insight-box h3 {
+            font-size: 1rem;
+            color: var(--oxytocin);
+            margin-bottom: 10px;
+        }
+
+        .insight-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Qualia Reflection Section */
+        .qualia-section {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(107, 142, 255, 0.1));
+            border: 1px solid var(--oxytocin);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .qualia-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--oxytocin);
+        }
+
+        .qualia-intro {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .qualia-prompts {
+            display: grid;
+            gap: 25px;
+        }
+
+        .qualia-prompt {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .prompt-part {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--vasopressin);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .prompt-question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .prompt-subquestions {
+            list-style: none;
+        }
+
+        .prompt-subquestions li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .prompt-subquestions li::before {
+            content: '♡';
+            position: absolute;
+            left: 0;
+            color: var(--oxytocin);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="module-tag">Neuroscience • Module 5 • Herr Prof. Dr. Awesome-Sauce</div>
+            <h1>The Neurochemistry of Your Relationships</h1>
+            <p class="subtitle">That warm feeling when you hug someone you love? That's oxytocin. But your oxytocin receptor genes might make that feeling stronger or weaker than your classmate's.</p>
+        </header>
+
+        <!-- Learning Objectives -->
+        <section class="objectives">
+            <h2>🎯 Learning Objectives</h2>
+            <ul>
+                <li>Describe the roles of oxytocin and vasopressin in social bonding</li>
+                <li>Explain how receptor polymorphisms create individual differences in social qualia</li>
+                <li>Connect animal models (prairie voles) to human attachment patterns</li>
+                <li>Reflect on your own attachment qualia as neurochemical experience</li>
+                <li>Recognize that "feeling connected" is a biological state, not just a metaphor</li>
+            </ul>
+        </section>
+
+        <!-- The Hook -->
+        <section class="hook-section">
+            <div class="hook-question">What does "feeling connected" actually feel like?</div>
+            <p class="hook-answer">When you're with someone you trust, something happens in your body. Your shoulders drop. Your breathing slows. You feel <strong>safe</strong>. That feeling—that qualia of connection—isn't a metaphor. It's <strong>oxytocin binding to receptors in your amygdala</strong>, telling your threat-detection system to stand down. Connection is a neurochemical state. And your genes determine how intensely you can experience it.</p>
+        </section>
+
+        <!-- Molecule Cards -->
+        <div class="section-header">
+            <h2>🧬 The Social Molecules</h2>
+            <p>Two neuropeptides form the biological basis of social bonding</p>
+        </div>
+
+        <div class="molecule-grid">
+            <div class="molecule-card oxytocin">
+                <div class="molecule-icon">💕</div>
+                <div class="molecule-name">Oxytocin</div>
+                <div class="molecule-aka">"The Bonding Hormone" / "Cuddle Chemical"</div>
+                <p class="molecule-description">
+                    A 9-amino-acid neuropeptide released from the posterior pituitary. Reduces amygdala reactivity, increases trust and social approach behavior. Critical for maternal bonding, pair bonding, and group cohesion. The qualia: warmth, safety, "we-ness."
+                </p>
+                <div class="molecule-triggers">
+                    <div class="triggers-label">Release Triggers</div>
+                    <div class="trigger-list">
+                        <span class="trigger-tag">Touch / Hugging</span>
+                        <span class="trigger-tag">Eye contact</span>
+                        <span class="trigger-tag">Orgasm</span>
+                        <span class="trigger-tag">Breastfeeding</span>
+                        <span class="trigger-tag">Childbirth</span>
+                        <span class="trigger-tag">Trust games</span>
+                        <span class="trigger-tag">Shared meals</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="molecule-card vasopressin">
+                <div class="molecule-icon">🛡️</div>
+                <div class="molecule-name">Vasopressin (AVP)</div>
+                <div class="molecule-aka">"The Monogamy Molecule" / "Mate Guarding"</div>
+                <p class="molecule-description">
+                    Differs from oxytocin by just 2 amino acids but has distinct effects. More associated with male bonding, territorial behavior, and protective aggression toward outsiders. The qualia: loyalty, protectiveness, "us vs. them."
+                </p>
+                <div class="molecule-triggers">
+                    <div class="triggers-label">Associated With</div>
+                    <div class="trigger-list">
+                        <span class="trigger-tag">Pair bond formation</span>
+                        <span class="trigger-tag">Mate guarding</span>
+                        <span class="trigger-tag">Paternal behavior</span>
+                        <span class="trigger-tag">Territorial defense</span>
+                        <span class="trigger-tag">In-group loyalty</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Scenarios -->
+        <section class="scenario-section">
+            <div class="section-header">
+                <h2>🎭 Social Scenarios & Your Neurochemistry</h2>
+                <p>Click each scenario to see the neurochemical profile and predicted qualia</p>
+            </div>
+
+            <div class="scenario-tabs">
+                <button class="scenario-tab active" onclick="showScenario('hug')">Long Hug from Partner</button>
+                <button class="scenario-tab" onclick="showScenario('stranger')">Crowded Room of Strangers</button>
+                <button class="scenario-tab" onclick="showScenario('betrayal')">Trust Betrayed</button>
+                <button class="scenario-tab" onclick="showScenario('newborn')">Holding Your Newborn</button>
+                <button class="scenario-tab" onclick="showScenario('threat')">Someone Threatens Your Family</button>
+            </div>
+
+            <!-- Hug Scenario -->
+            <div class="scenario-content active" id="scenario-hug">
+                <div class="scenario-story">
+                    You come home after a stressful day. Your partner meets you at the door and wraps you in a long, silent hug. You feel your body soften. The day's tension starts to drain away. For a moment, everything else disappears.
+                </div>
+                <div class="neurochemistry-display">
+                    <div class="chem-meter">
+                        <div class="chem-name">Oxytocin</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 90%; background: var(--oxytocin)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--oxytocin)">↑↑↑ High</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Cortisol</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 25%; background: var(--cortisol)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--trust)">↓↓ Dropping</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Dopamine</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 65%; background: var(--dopamine)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--dopamine)">↑ Elevated</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Amygdala Activity</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 20%; background: var(--cortisol)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--trust)">↓↓ Suppressed</div>
+                    </div>
+                </div>
+                <div class="qualia-description">
+                    <div class="qualia-label">What This Feels Like (Qualia)</div>
+                    <p class="qualia-text">
+                        <strong>Warmth spreading through your chest. Muscles releasing tension you didn't know you were holding. The sense that you're not alone—that someone has your back. Time slows down. The world outside this moment fades.</strong> This is oxytocin binding to receptors in your amygdala, reducing threat detection, while simultaneously activating reward circuits. "Safety" and "connection" aren't just ideas—they're neurochemical states.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stranger Scenario -->
+            <div class="scenario-content" id="scenario-stranger">
+                <div class="scenario-story">
+                    You walk into a large party where you don't know anyone. Everyone seems to already be in conversations. You scan the room, suddenly very aware of yourself. Your chest tightens slightly. You wonder if people are looking at you.
+                </div>
+                <div class="neurochemistry-display">
+                    <div class="chem-meter">
+                        <div class="chem-name">Oxytocin</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 30%; background: var(--oxytocin)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--text-secondary)">↓ Low</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Cortisol</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 70%; background: var(--cortisol)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--cortisol)">↑↑ Elevated</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Norepinephrine</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 65%; background: #00CED1"></div>
+                        </div>
+                        <div class="chem-level" style="color: #00CED1">↑ Alert</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Amygdala Activity</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 75%; background: var(--cortisol)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--cortisol)">↑↑ Active</div>
+                    </div>
+                </div>
+                <div class="qualia-description">
+                    <div class="qualia-label">What This Feels Like (Qualia)</div>
+                    <p class="qualia-text">
+                        <strong>Self-consciousness. Hyper-awareness of your body. A slight constriction in your chest. The urge to check your phone. Scanning faces for threat or welcome.</strong> Without familiar faces triggering oxytocin release, your amygdala stays vigilant. Cortisol rises, preparing you for potential social rejection—which, to your ancient brain, was as dangerous as physical threat. "Social anxiety" is your threat-detection system working overtime in the absence of safety signals.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Betrayal Scenario -->
+            <div class="scenario-content" id="scenario-betrayal">
+                <div class="scenario-story">
+                    You discover that a close friend has been talking behind your back. They said things about you that were cruel and untrue. Someone you trusted completely has revealed themselves as untrustworthy. Your stomach drops.
+                </div>
+                <div class="neurochemistry-display">
+                    <div class="chem-meter">
+                        <div class="chem-name">Oxytocin</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 15%; background: var(--oxytocin)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--cortisol)">↓↓↓ Crashed</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Cortisol</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 90%; background: var(--cortisol)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--cortisol)">↑↑↑ Spiked</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Dopamine</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 20%; background: var(--dopamine)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--text-secondary)">↓↓ Depleted</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Amygdala Activity</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 95%; background: var(--cortisol)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--cortisol)">↑↑↑ Hyperactive</div>
+                    </div>
+                </div>
+                <div class="qualia-description">
+                    <div class="qualia-label">What This Feels Like (Qualia)</div>
+                    <p class="qualia-text">
+                        <strong>A physical sensation of being punched. Nausea. A cold feeling spreading through your body. The world suddenly feels less safe. Replaying the betrayal over and over.</strong> Trust violation triggers a massive stress response because your brain has to rapidly update its model of who is safe. The oxytocin system that was encoding this person as "trustworthy" has to reverse. Social pain activates the same brain regions as physical pain—betrayal literally hurts.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Newborn Scenario -->
+            <div class="scenario-content" id="scenario-newborn">
+                <div class="scenario-story">
+                    After hours of labor, they place your newborn on your chest. The baby's eyes meet yours. Something happens in your brain that you've never experienced before. You would do anything—anything—to protect this small creature.
+                </div>
+                <div class="neurochemistry-display">
+                    <div class="chem-meter">
+                        <div class="chem-name">Oxytocin</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 100%; background: var(--oxytocin)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--oxytocin)">↑↑↑↑ Maximum</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Vasopressin</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 85%; background: var(--vasopressin)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--vasopressin)">↑↑↑ Surging</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Dopamine</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 90%; background: var(--dopamine)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--dopamine)">↑↑↑ Intense</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Prolactin</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 95%; background: var(--trust)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--trust)">↑↑↑ Flooding</div>
+                    </div>
+                </div>
+                <div class="qualia-description">
+                    <div class="qualia-label">What This Feels Like (Qualia)</div>
+                    <p class="qualia-text">
+                        <strong>Overwhelming. A love so intense it's almost painful. Complete absorption in this tiny being. The sense that your identity has fundamentally shifted—you are now "parent."</strong> This is the most intense oxytocin release humans experience. Combined with vasopressin (protective instincts), dopamine (this baby is the most rewarding stimulus), and prolactin (caregiving drive), it creates a neurochemical state designed by evolution to ensure you'll sacrifice anything for this infant. The intensity of parental love is a biological imperative.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Threat Scenario -->
+            <div class="scenario-content" id="scenario-threat">
+                <div class="scenario-story">
+                    Someone makes a threatening comment toward your child/partner/family member. Your vision narrows. Your body goes rigid. You feel something animal rising in you—a willingness to hurt, to protect, that surprises you with its intensity.
+                </div>
+                <div class="neurochemistry-display">
+                    <div class="chem-meter">
+                        <div class="chem-name">Vasopressin</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 95%; background: var(--vasopressin)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--vasopressin)">↑↑↑↑ Maxed</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Adrenaline</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 90%; background: var(--cortisol)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--cortisol)">↑↑↑ Surging</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Testosterone</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 80%; background: var(--dopamine)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--dopamine)">↑↑ Spiking</div>
+                    </div>
+                    <div class="chem-meter">
+                        <div class="chem-name">Pain Threshold</div>
+                        <div class="chem-bar-container">
+                            <div class="chem-bar" style="width: 85%; background: var(--trust)"></div>
+                        </div>
+                        <div class="chem-level" style="color: var(--trust)">↑↑ Elevated</div>
+                    </div>
+                </div>
+                <div class="qualia-description">
+                    <div class="qualia-label">What This Feels Like (Qualia)</div>
+                    <p class="qualia-text">
+                        <strong>Heat rising. Jaw clenching. A cold clarity replacing normal thought. The civilized part of you stepping aside as something older takes over. Absolute certainty that you would do violence if necessary.</strong> This is vasopressin-driven protective aggression. The same neurochemistry that bonds you to family also makes you dangerous to anyone who threatens them. "Mama bear" and "protective father" aren't metaphors—they're vasopressin states. Love and aggression are neurochemically linked.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Polymorphism Section -->
+        <section class="polymorphism-section">
+            <div class="section-header">
+                <h2>🧬 Why Your Connection Feels Different Than Mine</h2>
+                <p>Receptor polymorphisms create individual differences in social qualia—same neurotransmitter, different experience</p>
+            </div>
+
+            <div class="gene-explorer">
+                <!-- OXTR Gene -->
+                <div class="gene-card">
+                    <div class="gene-header">
+                        <div class="gene-name">OXTR (rs53576)</div>
+                        <div class="gene-type">Oxytocin Receptor</div>
+                    </div>
+                    <p class="gene-function">This polymorphism affects oxytocin receptor density and sensitivity. It influences how strongly you respond to social connection.</p>
+                    
+                    <div class="variant-selector">
+                        <div class="variant-label">Select your (hypothetical) genotype:</div>
+                        <div class="variant-buttons">
+                            <button class="variant-btn active" onclick="selectVariant('oxtr', 'GG')">
+                                <span class="allele">G/G</span>
+                                <span class="desc">~40% of population</span>
+                            </button>
+                            <button class="variant-btn" onclick="selectVariant('oxtr', 'AG')">
+                                <span class="allele">A/G</span>
+                                <span class="desc">~45% of population</span>
+                            </button>
+                            <button class="variant-btn" onclick="selectVariant('oxtr', 'AA')">
+                                <span class="allele">A/A</span>
+                                <span class="desc">~15% of population</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="variant-result" id="oxtr-result">
+                        <div class="result-title">Your Social Qualia Profile</div>
+                        <p class="result-text" id="oxtr-text">
+                            <strong>G/G carriers:</strong> Higher empathic accuracy. Better at reading emotions from faces. Social support feels more stress-buffering. Hugs might feel "more effective" at calming you. You may find social connection deeply rewarding and feel distress more acutely when isolated.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- AVPR1A Gene -->
+                <div class="gene-card">
+                    <div class="gene-header">
+                        <div class="gene-name">AVPR1A (RS3)</div>
+                        <div class="gene-type">Vasopressin Receptor</div>
+                    </div>
+                    <p class="gene-function">This gene affects vasopressin receptor distribution. In voles, it determines monogamous vs. promiscuous behavior. In humans, it influences pair bonding.</p>
+                    
+                    <div class="variant-selector">
+                        <div class="variant-label">Select your (hypothetical) genotype:</div>
+                        <div class="variant-buttons">
+                            <button class="variant-btn active" onclick="selectVariant('avpr', 'long')">
+                                <span class="allele">Long/Long</span>
+                                <span class="desc">More receptors</span>
+                            </button>
+                            <button class="variant-btn" onclick="selectVariant('avpr', 'mixed')">
+                                <span class="allele">Long/Short</span>
+                                <span class="desc">Intermediate</span>
+                            </button>
+                            <button class="variant-btn" onclick="selectVariant('avpr', 'short')">
+                                <span class="allele">Short/Short</span>
+                                <span class="desc">Fewer receptors</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="variant-result" id="avpr-result">
+                        <div class="result-title">Your Pair Bonding Profile</div>
+                        <p class="result-text" id="avpr-text">
+                            <strong>Long allele carriers:</strong> Higher partner bonding scores. More likely to be married. Partners report higher relationship quality. The "home" feeling with a partner might be stronger and more rewarding. Commitment may feel more natural, less constrained.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prairie Vole Section -->
+        <section class="vole-section">
+            <div class="section-header">
+                <h2>🐭 The Vole That Changed Everything</h2>
+                <p>How two nearly identical species revealed the neurochemistry of love</p>
+            </div>
+
+            <div class="vole-comparison">
+                <div class="vole-card">
+                    <div class="vole-emoji">💕🐭</div>
+                    <div class="vole-name">Prairie Vole</div>
+                    <div class="vole-species">Microtus ochrogaster</div>
+                    
+                    <div class="vole-trait">
+                        <span class="trait-name">Pair Bonding</span>
+                        <span class="trait-value" style="color: var(--oxytocin)">Lifelong monogamy</span>
+                    </div>
+                    <div class="vole-trait">
+                        <span class="trait-name">Parenting</span>
+                        <span class="trait-value" style="color: var(--oxytocin)">Biparental care</span>
+                    </div>
+                    <div class="vole-trait">
+                        <span class="trait-name">Mating</span>
+                        <span class="trait-value" style="color: var(--oxytocin)">Prefers familiar partner</span>
+                    </div>
+                    <div class="vole-trait">
+                        <span class="trait-name">V1a Receptors</span>
+                        <span class="trait-value" style="color: var(--vasopressin)">High density in reward areas</span>
+                    </div>
+
+                    <div class="vole-key-finding">
+                        <strong>Key finding:</strong> After mating, prairie voles show partner preference. Block oxytocin receptors? No pair bond forms. The "feeling" of attachment requires the receptor.
+                    </div>
+                </div>
+
+                <div class="vole-card">
+                    <div class="vole-emoji">🐭💨</div>
+                    <div class="vole-name">Montane Vole</div>
+                    <div class="vole-species">Microtus montanus</div>
+                    
+                    <div class="vole-trait">
+                        <span class="trait-name">Pair Bonding</span>
+                        <span class="trait-value" style="color: var(--text-secondary)">None (promiscuous)</span>
+                    </div>
+                    <div class="vole-trait">
+                        <span class="trait-name">Parenting</span>
+                        <span class="trait-value" style="color: var(--text-secondary)">Mother only</span>
+                    </div>
+                    <div class="vole-trait">
+                        <span class="trait-name">Mating</span>
+                        <span class="trait-value" style="color: var(--text-secondary)">No partner preference</span>
+                    </div>
+                    <div class="vole-trait">
+                        <span class="trait-name">V1a Receptors</span>
+                        <span class="trait-value" style="color: var(--text-secondary)">Low density in reward areas</span>
+                    </div>
+
+                    <div class="vole-key-finding">
+                        <strong>Key finding:</strong> Same oxytocin, same vasopressin—but different receptor distribution. Insert prairie vole receptor gene into montane vole brain? It becomes monogamous. Receptor location = behavior.
+                    </div>
+                </div>
+            </div>
+
+            <div class="vole-insight">
+                <div class="vole-insight-title">💡 The Profound Implication</div>
+                <p class="vole-insight-text">
+                    Both vole species have oxytocin and vasopressin. The difference is WHERE the receptors are expressed—prairie voles have them in reward circuitry, so partners become rewarding. Montane voles don't. <strong>The capacity for pair bonding isn't about having the right hormones—it's about having the right receptors in the right places.</strong> This is why OXTR polymorphisms in humans matter: same oxytocin, different receptor profiles, different qualia of connection.
+                </p>
+            </div>
+        </section>
+
+        <!-- Attachment Section -->
+        <section class="attachment-section">
+            <div class="section-header">
+                <h2>🔗 Attachment Style as Neurochemistry</h2>
+                <p>Your attachment pattern reflects your oxytocin/vasopressin system—click to explore each style</p>
+            </div>
+
+            <div class="attachment-grid">
+                <div class="attachment-card" onclick="selectAttachment('secure')">
+                    <div class="attachment-style">🟢 Secure Attachment</div>
+                    <div class="attachment-desc">Comfortable with intimacy and independence. Trust comes relatively easily. Can depend on others and be depended upon.</div>
+                    <div class="attachment-qualia"><strong>What it feels like:</strong> Connection as natural. Safety in relationships. Confidence that others will be there.</div>
+                </div>
+
+                <div class="attachment-card" onclick="selectAttachment('anxious')">
+                    <div class="attachment-style">🟡 Anxious Attachment</div>
+                    <div class="attachment-desc">Craves closeness but fears abandonment. Highly attuned to partner's moods. Seeks reassurance frequently.</div>
+                    <div class="attachment-qualia"><strong>What it feels like:</strong> Hunger for connection. Vigilance for rejection. Relief when reassured, but it fades quickly.</div>
+                </div>
+
+                <div class="attachment-card" onclick="selectAttachment('avoidant')">
+                    <div class="attachment-style">🔵 Avoidant Attachment</div>
+                    <div class="attachment-desc">Values independence highly. Discomfort with too much closeness. May withdraw when partners seek intimacy.</div>
+                    <div class="attachment-qualia"><strong>What it feels like:</strong> Suffocation with too much closeness. Relief in solitude. Confusion about why others need so much contact.</div>
+                </div>
+
+                <div class="attachment-card" onclick="selectAttachment('disorganized')">
+                    <div class="attachment-style">🔴 Disorganized Attachment</div>
+                    <div class="attachment-desc">Conflicting desires: wants closeness but fears it. Often from early trauma. Approach-avoidance pattern.</div>
+                    <div class="attachment-qualia"><strong>What it feels like:</strong> Wanting and fearing the same thing. Connection as both need and threat. Confusion about own desires.</div>
+                </div>
+            </div>
+
+            <div class="attachment-neurochemistry" id="attachment-neuro-secure">
+                <div class="attachment-neuro-title">Neurochemistry of Secure Attachment</div>
+                <p class="attachment-neuro-content">
+                    Secure attachment correlates with <strong>optimal oxytocin receptor sensitivity</strong> and effective HPA axis regulation. When stressed, securely attached individuals show oxytocin release that successfully downregulates cortisol. Social support actually works at the biological level—the presence of attachment figures reduces amygdala reactivity. The qualia of "safety in relationship" reflects a nervous system that learned early: proximity to caregiver = neurochemical calm.
+                </p>
+            </div>
+
+            <div class="attachment-neurochemistry" id="attachment-neuro-anxious">
+                <div class="attachment-neuro-title">Neurochemistry of Anxious Attachment</div>
+                <p class="attachment-neuro-content">
+                    Anxious attachment may reflect a <strong>hyperactive oxytocin system</strong>—high sensitivity to social cues, strong need for connection, but inconsistent early caregiving created uncertainty about whether the reward will come. The result: heightened approach motivation combined with heightened fear of loss. The qualia of "hunger for reassurance" reflects oxytocin systems that learned: connection is crucial but unpredictable, so monitor constantly.
+                </p>
+            </div>
+
+            <div class="attachment-neurochemistry" id="attachment-neuro-avoidant">
+                <div class="attachment-neuro-title">Neurochemistry of Avoidant Attachment</div>
+                <p class="attachment-neuro-content">
+                    Avoidant attachment may reflect <strong>downregulated oxytocin responsiveness</strong>—a system that learned early that proximity doesn't lead to reward (or leads to rejection), so the reward value of connection is dampened. These individuals show less oxytocin release during social interaction and less stress-buffering from social support. The qualia of "suffocation with closeness" reflects a nervous system that learned: independence is safer than depending on others.
+                </p>
+            </div>
+
+            <div class="attachment-neurochemistry" id="attachment-neuro-disorganized">
+                <div class="attachment-neuro-title">Neurochemistry of Disorganized Attachment</div>
+                <p class="attachment-neuro-content">
+                    Disorganized attachment often stems from caregivers who were simultaneously the source of fear and the source of comfort—an impossible situation. This creates <strong>conflicting activation of approach (oxytocin) and avoidance (cortisol/norepinephrine) systems simultaneously</strong>. The qualia of "wanting and fearing connection" reflects a nervous system in conflict: the same stimulus activates both reward and threat circuitry. This is neurological confusion, not character flaw.
+                </p>
+            </div>
+        </section>
+
+        <!-- Key Insight -->
+        <div class="insight-box">
+            <h3>🧠 The Key Insight</h3>
+            <p>
+                "Feeling connected" isn't a metaphor. It's oxytocin binding to receptors in your amygdala, reducing threat detection. "Feeling protective" isn't just emotion—it's vasopressin preparing your body for defensive aggression. Your attachment style isn't personality—it's your learned oxytocin/cortisol dynamics. And your OXTR polymorphisms mean you might experience the "same" hug completely differently than your classmate. <strong>The qualia of human connection—trust, safety, love, belonging—are neurochemical states. Understanding this doesn't make them less real. It reveals how profoundly biological "love" actually is.</strong>
+            </p>
+        </div>
+
+        <!-- Qualia Reflection Section -->
+        <section class="qualia-section">
+            <h2>🪞 Qualia Reflection</h2>
+            <p class="qualia-intro">Now that you've explored the neurochemistry of connection, reflect on your own social qualia.</p>
+
+            <div class="qualia-prompts">
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 1: Your Social Qualia</div>
+                    <div class="prompt-question">Think about what "connection" feels like for you—really feels like, in your body.</div>
+                    <ul class="prompt-subquestions">
+                        <li>What does it feel like when you're with someone you deeply trust? Where do you feel it physically?</li>
+                        <li>What does social anxiety feel like? Can you locate it in your body?</li>
+                        <li>How quickly do you "warm up" to new people? What might this suggest about your oxytocin receptor sensitivity?</li>
+                        <li>Do you find physical touch comforting or overwhelming? What might this reflect neurochemically?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 2: Collaborative Elaboration</div>
+                    <div class="prompt-question">Share your descriptions with your group. Compare the qualia of connection:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Does everyone describe "trust" or "safety" the same way? Where do experiences diverge?</li>
+                        <li>Some people find parties energizing; others find them draining. How might receptor differences explain this?</li>
+                        <li>If two people are in the "same" relationship but have different OXTR genotypes, are they having the same experience?</li>
+                        <li>How do attachment styles in your group map onto the neurochemical profiles discussed?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 3: Meta-Reflection</div>
+                    <div class="prompt-question">If human connection is fundamentally neurochemical:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Does knowing oxytocin underlies trust make trust less "real" or more understandable?</li>
+                        <li>If someone has low OXTR sensitivity, is their relative lack of social need a "disorder" or just variation?</li>
+                        <li>What are the ethical implications of oxytocin as a potential treatment for social difficulties?</li>
+                        <li>If attachment styles are neurochemically encoded, how much can they change? What would "change" even mean biologically?</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Neuroscience • Teaching neuroscience through subjective experience • Herr Prof. Dr. Awesome-Sauce</p>
+            <p style="margin-top: 8px; font-size: 0.75rem;">Connection is a neurochemical state. Your genes determine how intensely you can experience it.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Scenario tabs
+        function showScenario(scenarioId) {
+            // Remove active from all tabs
+            document.querySelectorAll('.scenario-tab').forEach(tab => tab.classList.remove('active'));
+            // Add active to clicked tab
+            event.currentTarget.classList.add('active');
+            
+            // Hide all scenarios
+            document.querySelectorAll('.scenario-content').forEach(content => content.classList.remove('active'));
+            // Show selected scenario
+            document.getElementById(`scenario-${scenarioId}`).classList.add('active');
+        }
+
+        // Gene variant selection
+        const variantData = {
+            oxtr: {
+                GG: "<strong>G/G carriers:</strong> Higher empathic accuracy. Better at reading emotions from faces. Social support feels more stress-buffering. Hugs might feel 'more effective' at calming you. You may find social connection deeply rewarding and feel distress more acutely when isolated.",
+                AG: "<strong>A/G carriers:</strong> Intermediate profile. You have one copy of each allele, so your oxytocin sensitivity falls between the extremes. You might relate to aspects of both profiles—sometimes deeply moved by connection, other times more self-contained.",
+                AA: "<strong>A/A carriers:</strong> Lower emotional empathy scores on average. May find social cues harder to read. Social support might be less stress-buffering—you may rely more on self-regulation. This isn't 'worse'—it's different. You might be more independent, less affected by social rejection, more self-sufficient."
+            },
+            avpr: {
+                long: "<strong>Long allele carriers:</strong> Higher partner bonding scores. More likely to be married. Partners report higher relationship quality. The 'home' feeling with a partner might be stronger and more rewarding. Commitment may feel more natural, less constrained.",
+                mixed: "<strong>Long/Short carriers:</strong> Intermediate bonding profile. You may experience strong pair bonding but with more variability. The pull toward commitment exists but might compete more with desire for novelty or independence.",
+                short: "<strong>Short allele carriers:</strong> Associated with lower pair bonding scores and more relationship difficulties in some studies. This doesn't mean you can't bond—but the neurochemical 'reward' from partnership might be less intense, making commitment feel more like a choice than a pull."
+            }
+        };
+
+        function selectVariant(gene, variant) {
+            // Update button states
+            const card = event.currentTarget.closest('.gene-card');
+            card.querySelectorAll('.variant-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            // Update result text
+            document.getElementById(`${gene}-text`).innerHTML = variantData[gene][variant];
+        }
+
+        // Attachment selection
+        function selectAttachment(style) {
+            // Update card states
+            document.querySelectorAll('.attachment-card').forEach(card => card.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            // Hide all neurochemistry panels
+            document.querySelectorAll('.attachment-neurochemistry').forEach(panel => panel.classList.remove('active'));
+            
+            // Show selected panel
+            document.getElementById(`attachment-neuro-${style}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

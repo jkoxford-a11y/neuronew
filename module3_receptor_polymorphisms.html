@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Does Your Anxiety Feel Different Than Mine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gene-blue: #60A5FA;
+            --gene-purple: #A78BFA;
+            --gene-pink: #F472B6;
+            --gene-green: #34D399;
+            --gene-orange: #FB923C;
+            --warrior: #EF4444;
+            --worrier: #3B82F6;
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a25;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --border: #2a2a3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: radial-gradient(ellipse, rgba(167, 139, 250, 0.15) 0%, rgba(244, 114, 182, 0.1) 50%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .module-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gene-purple);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gene-purple), var(--gene-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Learning Objectives */
+        .objectives {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .objectives h2 {
+            font-size: 1.1rem;
+            color: var(--gene-purple);
+            margin-bottom: 15px;
+        }
+
+        .objectives ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
+        .objectives li {
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .objectives li::before {
+            content: '🧬';
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        /* Section styling */
+        .section-header {
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* The Hook Section */
+        .hook-section {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(244, 114, 182, 0.1));
+            border: 1px solid var(--gene-purple);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .hook-scenario {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .hook-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto 25px;
+        }
+
+        @media (max-width: 768px) {
+            .hook-comparison {
+                grid-template-columns: 1fr;
+            }
+            .hook-vs {
+                display: none;
+            }
+        }
+
+        .hook-person {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .hook-person.warrior {
+            border: 2px solid var(--warrior);
+        }
+
+        .hook-person.worrier {
+            border: 2px solid var(--worrier);
+        }
+
+        .person-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .person-label {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .hook-person.warrior .person-label {
+            color: var(--warrior);
+        }
+
+        .hook-person.worrier .person-label {
+            color: var(--worrier);
+        }
+
+        .person-qualia {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .hook-vs {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .hook-explanation {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .hook-explanation strong {
+            color: var(--gene-purple);
+        }
+
+        /* Core Concept Section */
+        .concept-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .concept-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .concept-box {
+            background: var(--bg-elevated);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .concept-box.gene {
+            border-color: var(--gene-purple);
+        }
+
+        .concept-box.receptor {
+            border-color: var(--gene-blue);
+        }
+
+        .concept-box.function {
+            border-color: var(--gene-green);
+        }
+
+        .concept-box.qualia {
+            border-color: var(--gene-pink);
+        }
+
+        .concept-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .concept-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .concept-arrow {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .concept-explanation {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        .concept-explanation p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .concept-explanation p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Gene Explorer Cards */
+        .gene-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .gene-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .gene-tab {
+            background: var(--bg-elevated);
+            border: 2px solid var(--border);
+            padding: 15px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-secondary);
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .gene-tab:hover {
+            border-color: var(--gene-purple);
+            color: var(--text-primary);
+        }
+
+        .gene-tab.active {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(244, 114, 182, 0.1));
+            border-color: var(--gene-purple);
+            color: var(--text-primary);
+        }
+
+        .gene-tab-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .gene-tab-desc {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .gene-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .gene-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gene-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .gene-header {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .gene-info {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .gene-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .gene-fullname {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .gene-function {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .gene-location {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .location-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .location-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--gene-blue);
+            margin-bottom: 15px;
+        }
+
+        .what-it-affects {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Variant Selector */
+        .variant-explorer {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .variant-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .variant-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .variant-option {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .variant-option:hover {
+            border-color: var(--gene-purple);
+        }
+
+        .variant-option.active {
+            border-color: var(--gene-purple);
+            background: rgba(167, 139, 250, 0.1);
+        }
+
+        .variant-allele {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .variant-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .variant-freq {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .variant-result {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .result-panel {
+            background: var(--bg-elevated);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .result-label {
+            font-size: 0.8rem;
+            color: var(--gene-purple);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .result-content {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .qualia-panel {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), transparent);
+            border-left: 4px solid var(--gene-pink);
+        }
+
+        .qualia-panel .result-label {
+            color: var(--gene-pink);
+        }
+
+        .qualia-panel .result-content {
+            font-style: italic;
+        }
+
+        /* Meter visualization */
+        .trait-meters {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .trait-meter {
+            background: var(--bg-elevated);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .meter-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .meter-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .meter-endpoints {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .meter-bar {
+            height: 10px;
+            background: var(--bg-card);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: all 0.5s ease;
+        }
+
+        .meter-marker {
+            position: absolute;
+            top: -3px;
+            width: 4px;
+            height: 16px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: left 0.5s ease;
+        }
+
+        /* Interaction Example Section */
+        .interaction-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .interaction-scenario {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .scenario-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .scenario-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .interaction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .profile-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .profile-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .profile-genotype {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .profile-genes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .gene-badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .profile-response {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .response-label {
+            font-size: 0.75rem;
+            color: var(--gene-pink);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .response-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* Key Statistics */
+        .stats-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .stat-card {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gene-purple), var(--gene-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Important Note */
+        .note-box {
+            background: var(--bg-elevated);
+            border: 1px solid var(--gene-orange);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .note-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .note-icon {
+            font-size: 1.5rem;
+        }
+
+        .note-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gene-orange);
+        }
+
+        .note-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .note-content strong {
+            color: var(--text-primary);
+        }
+
+        /* Key Insight Box */
+        .insight-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--gene-purple);
+            border-radius: 0 12px 12px 0;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .insight-box h3 {
+            font-size: 1rem;
+            color: var(--gene-purple);
+            margin-bottom: 10px;
+        }
+
+        .insight-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Qualia Reflection Section */
+        .qualia-section {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(244, 114, 182, 0.1));
+            border: 1px solid var(--gene-purple);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .qualia-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--gene-purple);
+        }
+
+        .qualia-intro {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .qualia-prompts {
+            display: grid;
+            gap: 25px;
+        }
+
+        .qualia-prompt {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .prompt-part {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gene-pink);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .prompt-question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .prompt-subquestions {
+            list-style: none;
+        }
+
+        .prompt-subquestions li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .prompt-subquestions li::before {
+            content: '🧬';
+            position: absolute;
+            left: 0;
+            font-size: 0.7rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="module-tag">Neuroscience • Module 3 • Herr Prof. Dr. Awesome-Sauce</div>
+            <h1>Why Does Your Anxiety Feel Different Than Mine?</h1>
+            <p class="subtitle">You both have dopamine, serotonin, and norepinephrine. But your receptors might work completely differently. Same neurotransmitter, different genes, different qualia.</p>
+        </header>
+
+        <!-- Learning Objectives -->
+        <section class="objectives">
+            <h2>🎯 Learning Objectives</h2>
+            <ul>
+                <li>Explain how receptor polymorphisms create individual differences in neurotransmitter function</li>
+                <li>Describe specific genes (COMT, SLC6A4, DRD4) and their effects on behavior and experience</li>
+                <li>Connect genetic variation to differences in subjective experience (qualia)</li>
+                <li>Understand why the "same" situation creates different experiences for different people</li>
+                <li>Recognize the interplay between genes and environment in shaping qualia</li>
+            </ul>
+        </section>
+
+        <!-- The Hook -->
+        <section class="hook-section">
+            <div class="hook-scenario">
+                Two students take the same exam. Same difficulty. Same preparation. Same stakes.
+            </div>
+
+            <div class="hook-comparison">
+                <div class="hook-person warrior">
+                    <div class="person-icon">⚔️</div>
+                    <div class="person-label">Student A: "Warrior"</div>
+                    <p class="person-qualia">"I feel sharp under pressure. Stress focuses me. The harder it gets, the clearer I think."</p>
+                </div>
+
+                <div class="hook-vs">VS</div>
+
+                <div class="hook-person worrier">
+                    <div class="person-icon">🧠</div>
+                    <div class="person-label">Student B: "Worrier"</div>
+                    <p class="person-qualia">"My mind races. I second-guess everything. The pressure makes it hard to access what I know."</p>
+                </div>
+            </div>
+
+            <p class="hook-explanation">
+                Same exam. Same brain chemicals. <strong>Completely different qualia.</strong> Why? Because Student A has COMT Val/Val genotype (fast dopamine clearance) while Student B has COMT Met/Met (slow clearance). Under stress, Student A's prefrontal cortex gets a helpful dopamine boost. Student B's gets flooded. <strong>The difference isn't psychological—it's genetic.</strong>
+            </p>
+        </section>
+
+        <!-- Core Concept -->
+        <section class="concept-section">
+            <div class="section-header">
+                <h2>🧬 From Gene to Qualia</h2>
+                <p>How a single nucleotide change creates a different experience of reality</p>
+            </div>
+
+            <div class="concept-visual">
+                <div class="concept-box gene">
+                    <div class="concept-icon">🧬</div>
+                    <div class="concept-label">Gene Variant</div>
+                </div>
+                <div class="concept-arrow">→</div>
+                <div class="concept-box receptor">
+                    <div class="concept-icon">🔌</div>
+                    <div class="concept-label">Receptor/Enzyme Difference</div>
+                </div>
+                <div class="concept-arrow">→</div>
+                <div class="concept-box function">
+                    <div class="concept-icon">⚡</div>
+                    <div class="concept-label">Changed NT Function</div>
+                </div>
+                <div class="concept-arrow">→</div>
+                <div class="concept-box qualia">
+                    <div class="concept-icon">✨</div>
+                    <div class="concept-label">Different Qualia</div>
+                </div>
+            </div>
+
+            <div class="concept-explanation">
+                <p><strong>Single Nucleotide Polymorphisms (SNPs)</strong> are places in the genome where people differ by just one DNA letter. Most SNPs do nothing. But some occur in genes that code for receptors, transporters, or enzymes in your neurotransmitter systems.</p>
+                <p>When this happens, you might have more or fewer receptors, faster or slower reuptake, more or less efficient enzymes. The neurotransmitter is the same—but what it DOES in your brain is different. And since your subjective experience IS your brain activity, <strong>different receptor function = different qualia.</strong></p>
+                <p>This is why medications work differently for different people. Why some people are "naturally anxious" and others are "naturally calm." Why trauma affects siblings differently. It's not just experience—it's the hardware processing that experience.</p>
+            </div>
+        </section>
+
+        <!-- Gene Explorer -->
+        <section class="gene-section">
+            <div class="section-header">
+                <h2>🔬 Explore the Major Polymorphisms</h2>
+                <p>Click each gene to explore its variants and their effects on experience</p>
+            </div>
+
+            <div class="gene-tabs">
+                <button class="gene-tab active" onclick="selectGene('comt')">
+                    <div class="gene-tab-name">COMT</div>
+                    <div class="gene-tab-desc">Warrior vs. Worrier</div>
+                </button>
+                <button class="gene-tab" onclick="selectGene('slc6a4')">
+                    <div class="gene-tab-name">SLC6A4</div>
+                    <div class="gene-tab-desc">Serotonin Sensitivity</div>
+                </button>
+                <button class="gene-tab" onclick="selectGene('drd4')">
+                    <div class="gene-tab-name">DRD4</div>
+                    <div class="gene-tab-desc">Novelty Seeking</div>
+                </button>
+                <button class="gene-tab" onclick="selectGene('oprm1')">
+                    <div class="gene-tab-name">OPRM1</div>
+                    <div class="gene-tab-desc">Social Pain</div>
+                </button>
+            </div>
+
+            <!-- COMT Content -->
+            <div class="gene-content active" id="gene-comt">
+                <div class="gene-header">
+                    <div class="gene-info">
+                        <div class="gene-title">COMT Val158Met</div>
+                        <div class="gene-fullname">Catechol-O-Methyltransferase</div>
+                        <p class="gene-function">COMT is an enzyme that breaks down dopamine (and other catecholamines) in the prefrontal cortex. The Val158Met polymorphism changes how fast this enzyme works—and therefore how much dopamine hangs around in your prefrontal cortex during stress.</p>
+                    </div>
+                    <div class="gene-location">
+                        <div class="location-label">Chromosome</div>
+                        <div class="location-value">22q11.21</div>
+                        <div class="what-it-affects">Affects: Stress response, working memory, pain sensitivity, executive function</div>
+                    </div>
+                </div>
+
+                <div class="variant-explorer">
+                    <div class="variant-title">Select Genotype</div>
+                    
+                    <div class="variant-options">
+                        <div class="variant-option" onclick="selectVariant('comt', 'val-val')">
+                            <div class="variant-allele">Val/Val</div>
+                            <div class="variant-name">"Warrior"</div>
+                            <div class="variant-freq">~25% of population</div>
+                        </div>
+                        <div class="variant-option active" onclick="selectVariant('comt', 'val-met')">
+                            <div class="variant-allele">Val/Met</div>
+                            <div class="variant-name">Intermediate</div>
+                            <div class="variant-freq">~50% of population</div>
+                        </div>
+                        <div class="variant-option" onclick="selectVariant('comt', 'met-met')">
+                            <div class="variant-allele">Met/Met</div>
+                            <div class="variant-name">"Worrier"</div>
+                            <div class="variant-freq">~25% of population</div>
+                        </div>
+                    </div>
+
+                    <div class="variant-result" id="comt-result">
+                        <div class="result-grid">
+                            <div class="result-panel">
+                                <div class="result-label">Enzyme Activity</div>
+                                <div class="result-content" id="comt-enzyme">Intermediate COMT activity. Dopamine clearance is moderate—not too fast, not too slow. A balanced profile that shows characteristics of both warriors and worriers depending on context.</div>
+                            </div>
+                            <div class="result-panel">
+                                <div class="result-label">Under Stress</div>
+                                <div class="result-content" id="comt-stress">Moderate stress response. Can handle pressure reasonably well, though very high stress may start to impair function. Neither as stress-resilient as Val/Val nor as stress-sensitive as Met/Met.</div>
+                            </div>
+                            <div class="result-panel qualia-panel">
+                                <div class="result-label">The Qualia Experience</div>
+                                <div class="result-content" id="comt-qualia">"Stress affects me, but I can usually manage. High-stakes situations are challenging but not overwhelming. I can think under pressure, though I notice my mind working harder. I'm somewhere in the middle—neither thriving under fire nor crumbling."</div>
+                            </div>
+                        </div>
+
+                        <div class="trait-meters">
+                            <div class="trait-meter">
+                                <div class="meter-header">
+                                    <span class="meter-name">Stress Resilience</span>
+                                    <span class="meter-endpoints">Sensitive ← → Resilient</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="comt-meter-stress" style="width: 50%; background: linear-gradient(90deg, var(--worrier), var(--warrior))"></div>
+                                </div>
+                            </div>
+                            <div class="trait-meter">
+                                <div class="meter-header">
+                                    <span class="meter-name">Baseline Cognition</span>
+                                    <span class="meter-endpoints">Lower ← → Higher</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="comt-meter-cognition" style="width: 50%; background: linear-gradient(90deg, var(--gene-orange), var(--gene-green))"></div>
+                                </div>
+                            </div>
+                            <div class="trait-meter">
+                                <div class="meter-header">
+                                    <span class="meter-name">Pain Sensitivity</span>
+                                    <span class="meter-endpoints">Low ← → High</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="comt-meter-pain" style="width: 50%; background: linear-gradient(90deg, var(--gene-green), var(--gene-pink))"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLC6A4 Content -->
+            <div class="gene-content" id="gene-slc6a4">
+                <div class="gene-header">
+                    <div class="gene-info">
+                        <div class="gene-title">SLC6A4 (5-HTTLPR)</div>
+                        <div class="gene-fullname">Serotonin Transporter Gene</div>
+                        <p class="gene-function">This gene codes for the serotonin transporter—the protein that "vacuums up" serotonin from the synapse after it's released. The 5-HTTLPR polymorphism affects how many transporters you have, which determines how long serotonin stays active in your synapses.</p>
+                    </div>
+                    <div class="gene-location">
+                        <div class="location-label">Chromosome</div>
+                        <div class="location-value">17q11.2</div>
+                        <div class="what-it-affects">Affects: Emotional reactivity, stress sensitivity, depression risk, environmental sensitivity</div>
+                    </div>
+                </div>
+
+                <div class="variant-explorer">
+                    <div class="variant-title">Select Genotype</div>
+                    
+                    <div class="variant-options">
+                        <div class="variant-option" onclick="selectVariant('slc6a4', 'long-long')">
+                            <div class="variant-allele">L/L</div>
+                            <div class="variant-name">Long/Long</div>
+                            <div class="variant-freq">~30% of population</div>
+                        </div>
+                        <div class="variant-option active" onclick="selectVariant('slc6a4', 'long-short')">
+                            <div class="variant-allele">L/S</div>
+                            <div class="variant-name">Long/Short</div>
+                            <div class="variant-freq">~50% of population</div>
+                        </div>
+                        <div class="variant-option" onclick="selectVariant('slc6a4', 'short-short')">
+                            <div class="variant-allele">S/S</div>
+                            <div class="variant-name">Short/Short</div>
+                            <div class="variant-freq">~20% of population</div>
+                        </div>
+                    </div>
+
+                    <div class="variant-result" id="slc6a4-result">
+                        <div class="result-grid">
+                            <div class="result-panel">
+                                <div class="result-label">Transporter Density</div>
+                                <div class="result-content" id="slc6a4-density">Intermediate transporter expression. Serotonin reuptake is moderate—neither as efficient as L/L nor as slow as S/S. Environmental influences have moderate impact on mood and anxiety.</div>
+                            </div>
+                            <div class="result-panel">
+                                <div class="result-label">Environmental Sensitivity</div>
+                                <div class="result-content" id="slc6a4-environment">Moderately sensitive to environment. Bad experiences increase risk for depression more than L/L, but good experiences also provide more benefit. A "differential susceptibility" pattern.</div>
+                            </div>
+                            <div class="result-panel qualia-panel">
+                                <div class="result-label">The Qualia Experience</div>
+                                <div class="result-content" id="slc6a4-qualia">"My mood responds to my environment. Good times feel good; bad times hit me. I'm neither bulletproof nor fragile—I'm responsive. Stress affects me, but I can recover. I feel things, but I'm not overwhelmed by them."</div>
+                            </div>
+                        </div>
+
+                        <div class="trait-meters">
+                            <div class="trait-meter">
+                                <div class="meter-header">
+                                    <span class="meter-name">Emotional Reactivity</span>
+                                    <span class="meter-endpoints">Muted ← → Intense</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="slc6a4-meter-emotion" style="width: 50%; background: linear-gradient(90deg, var(--gene-blue), var(--gene-pink))"></div>
+                                </div>
+                            </div>
+                            <div class="trait-meter">
+                                <div class="meter-header">
+                                    <span class="meter-name">Environmental Sensitivity</span>
+                                    <span class="meter-endpoints">Resilient ← → Sensitive</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="slc6a4-meter-env" style="width: 50%; background: linear-gradient(90deg, var(--gene-green), var(--gene-orange))"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DRD4 Content -->
+            <div class="gene-content" id="gene-drd4">
+                <div class="gene-header">
+                    <div class="gene-info">
+                        <div class="gene-title">DRD4 7-Repeat</div>
+                        <div class="gene-fullname">Dopamine Receptor D4</div>
+                        <p class="gene-function">DRD4 codes for a dopamine receptor involved in reward and novelty detection. The 7-repeat (7R) variant creates a "blunted" receptor that requires more dopamine to activate. Carriers may seek more stimulation to achieve the same reward response.</p>
+                    </div>
+                    <div class="gene-location">
+                        <div class="location-label">Chromosome</div>
+                        <div class="location-value">11p15.5</div>
+                        <div class="what-it-affects">Affects: Novelty seeking, risk taking, attention, response to rewards</div>
+                    </div>
+                </div>
+
+                <div class="variant-explorer">
+                    <div class="variant-title">Select Genotype</div>
+                    
+                    <div class="variant-options">
+                        <div class="variant-option active" onclick="selectVariant('drd4', 'no-7r')">
+                            <div class="variant-allele">No 7R</div>
+                            <div class="variant-name">Standard Receptors</div>
+                            <div class="variant-freq">~70% of population</div>
+                        </div>
+                        <div class="variant-option" onclick="selectVariant('drd4', 'one-7r')">
+                            <div class="variant-allele">One 7R</div>
+                            <div class="variant-name">Heterozygous</div>
+                            <div class="variant-freq">~25% of population</div>
+                        </div>
+                        <div class="variant-option" onclick="selectVariant('drd4', 'two-7r')">
+                            <div class="variant-allele">Two 7R</div>
+                            <div class="variant-name">Homozygous 7R</div>
+                            <div class="variant-freq">~5% of population</div>
+                        </div>
+                    </div>
+
+                    <div class="variant-result" id="drd4-result">
+                        <div class="result-grid">
+                            <div class="result-panel">
+                                <div class="result-label">Receptor Sensitivity</div>
+                                <div class="result-content" id="drd4-receptor">Normal D4 receptor function. Standard dopamine binding efficiency means normal reward response to typical stimuli. Neither seeking extra stimulation nor especially sensitive to rewards.</div>
+                            </div>
+                            <div class="result-panel">
+                                <div class="result-label">Behavioral Tendency</div>
+                                <div class="result-content" id="drd4-behavior">Typical levels of novelty-seeking and risk-taking. Routine is tolerable; novelty is pleasant but not compulsively sought. Attention is stable without extraordinary effort.</div>
+                            </div>
+                            <div class="result-panel qualia-panel">
+                                <div class="result-label">The Qualia Experience</div>
+                                <div class="result-content" id="drd4-qualia">"Everyday life provides adequate stimulation. I enjoy new experiences but don't need them constantly. I can settle into routines without feeling restless. Rewards feel satisfying at normal levels—I don't need extreme experiences to feel alive."</div>
+                            </div>
+                        </div>
+
+                        <div class="trait-meters">
+                            <div class="trait-meter">
+                                <div class="meter-header">
+                                    <span class="meter-name">Novelty Seeking</span>
+                                    <span class="meter-endpoints">Content ← → Seeking</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="drd4-meter-novelty" style="width: 35%; background: linear-gradient(90deg, var(--gene-blue), var(--gene-orange))"></div>
+                                </div>
+                            </div>
+                            <div class="trait-meter">
+                                <div class="meter-header">
+                                    <span class="meter-name">Risk Tolerance</span>
+                                    <span class="meter-endpoints">Cautious ← → Risk-Taking</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="drd4-meter-risk" style="width: 35%; background: linear-gradient(90deg, var(--gene-green), var(--warrior))"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPRM1 Content -->
+            <div class="gene-content" id="gene-oprm1">
+                <div class="gene-header">
+                    <div class="gene-info">
+                        <div class="gene-title">OPRM1 A118G</div>
+                        <div class="gene-fullname">Mu-Opioid Receptor 1</div>
+                        <p class="gene-function">OPRM1 codes for the mu-opioid receptor—critical for both physical pain and social bonding (rejection hurts because it activates the same system). The A118G variant affects receptor function and may influence sensitivity to both physical and social pain.</p>
+                    </div>
+                    <div class="gene-location">
+                        <div class="location-label">Chromosome</div>
+                        <div class="location-value">6q25.2</div>
+                        <div class="what-it-affects">Affects: Pain sensitivity, social bonding, rejection sensitivity, addiction risk</div>
+                    </div>
+                </div>
+
+                <div class="variant-explorer">
+                    <div class="variant-title">Select Genotype</div>
+                    
+                    <div class="variant-options">
+                        <div class="variant-option active" onclick="selectVariant('oprm1', 'aa')">
+                            <div class="variant-allele">A/A</div>
+                            <div class="variant-name">Common Variant</div>
+                            <div class="variant-freq">~75% of population</div>
+                        </div>
+                        <div class="variant-option" onclick="selectVariant('oprm1', 'ag')">
+                            <div class="variant-allele">A/G</div>
+                            <div class="variant-name">Heterozygous</div>
+                            <div class="variant-freq">~23% of population</div>
+                        </div>
+                        <div class="variant-option" onclick="selectVariant('oprm1', 'gg')">
+                            <div class="variant-allele">G/G</div>
+                            <div class="variant-name">Rare Variant</div>
+                            <div class="variant-freq">~2% of population</div>
+                        </div>
+                    </div>
+
+                    <div class="variant-result" id="oprm1-result">
+                        <div class="result-grid">
+                            <div class="result-panel">
+                                <div class="result-label">Receptor Function</div>
+                                <div class="result-content" id="oprm1-receptor">Standard mu-opioid receptor binding. Normal endorphin response to both physical pleasure and social connection. Typical pain sensitivity and social bonding capacity.</div>
+                            </div>
+                            <div class="result-panel">
+                                <div class="result-label">Social Pain Response</div>
+                                <div class="result-content" id="oprm1-social">Rejection hurts, but at typical levels. Social exclusion activates pain systems normally. Neither hypersensitive to rejection nor unusually resilient to social pain.</div>
+                            </div>
+                            <div class="result-panel qualia-panel">
+                                <div class="result-label">The Qualia Experience</div>
+                                <div class="result-content" id="oprm1-qualia">"Rejection stings but doesn't devastate me. I value social connection and feel good around people I care about. Physical pain is unpleasant but manageable. Social bonds feel warm and rewarding—being included feels genuinely good."</div>
+                            </div>
+                        </div>
+
+                        <div class="trait-meters">
+                            <div class="trait-meter">
+                                <div class="meter-header">
+                                    <span class="meter-name">Rejection Sensitivity</span>
+                                    <span class="meter-endpoints">Resilient ← → Sensitive</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="oprm1-meter-rejection" style="width: 40%; background: linear-gradient(90deg, var(--gene-green), var(--gene-pink))"></div>
+                                </div>
+                            </div>
+                            <div class="trait-meter">
+                                <div class="meter-header">
+                                    <span class="meter-name">Social Bonding Reward</span>
+                                    <span class="meter-endpoints">Muted ← → Strong</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="oprm1-meter-bonding" style="width: 50%; background: linear-gradient(90deg, var(--gene-blue), var(--gene-purple))"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interaction Example -->
+        <section class="interaction-section">
+            <div class="section-header">
+                <h2>👥 Same Situation, Different Brains, Different Qualia</h2>
+                <p>See how genetic profiles create different experiences of the same event</p>
+            </div>
+
+            <div class="interaction-scenario">
+                <div class="scenario-title">📱 The Scenario: Getting Left on Read</div>
+                <p class="scenario-desc">You text someone you're interested in. Hours pass. No response. The message shows as "read." How does this feel?</p>
+            </div>
+
+            <div class="interaction-grid">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">😌</div>
+                        <div>
+                            <div class="profile-name">Profile A: The Resilient</div>
+                            <div class="profile-genotype">COMT Val/Val • 5-HTTLPR L/L • OPRM1 A/A</div>
+                        </div>
+                    </div>
+                    <div class="profile-genes">
+                        <span class="gene-badge">Fast DA clearance</span>
+                        <span class="gene-badge">Stable serotonin</span>
+                        <span class="gene-badge">Normal opioid</span>
+                    </div>
+                    <div class="profile-response">
+                        <div class="response-label">Their Qualia</div>
+                        <p class="response-text">"Huh, they haven't responded. They're probably busy. I'll hear back eventually, or I won't. Either way, it's not a big deal. I notice I'm a little curious but not particularly stressed about it. Life goes on."</p>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">😰</div>
+                        <div>
+                            <div class="profile-name">Profile B: The Sensitive</div>
+                            <div class="profile-genotype">COMT Met/Met • 5-HTTLPR S/S • OPRM1 G/G</div>
+                        </div>
+                    </div>
+                    <div class="profile-genes">
+                        <span class="gene-badge">Slow DA clearance</span>
+                        <span class="gene-badge">High 5-HT sensitivity</span>
+                        <span class="gene-badge">High social pain</span>
+                    </div>
+                    <div class="profile-response">
+                        <div class="response-label">Their Qualia</div>
+                        <p class="response-text">"They saw it and didn't respond. What did I say wrong? I'm replaying the message in my head. There's a physical ache in my chest. I can't focus on anything else. I keep checking my phone. Did I mess this up completely?"</p>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">🤷</div>
+                        <div>
+                            <div class="profile-name">Profile C: The Novelty Seeker</div>
+                            <div class="profile-genotype">COMT Val/Met • DRD4 7R/7R • OPRM1 A/A</div>
+                        </div>
+                    </div>
+                    <div class="profile-genes">
+                        <span class="gene-badge">Moderate DA</span>
+                        <span class="gene-badge">High novelty need</span>
+                        <span class="gene-badge">Normal social pain</span>
+                    </div>
+                    <div class="profile-response">
+                        <div class="response-label">Their Qualia</div>
+                        <p class="response-text">"Oh well, that's boring. I'm already thinking about who else I could text. Waiting around isn't my thing—I need something happening. Maybe I'll try someone new. Standing still feels worse than rejection."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Important Note -->
+        <div class="note-box">
+            <div class="note-header">
+                <div class="note-icon">⚠️</div>
+                <div class="note-title">Critical Context: Genes ≠ Destiny</div>
+            </div>
+            <div class="note-content">
+                <p><strong>These polymorphisms influence tendencies, not determine outcomes.</strong> Having the "worrier" COMT genotype doesn't mean you'll be anxious—it means stress affects your prefrontal cortex differently. Environment, experience, coping strategies, and other genes all interact.</p>
+                <p style="margin-top: 15px;">The S/S 5-HTTLPR variant is associated with depression risk—but only in people who experience significant stress. In supportive environments, S/S carriers may actually do BETTER than L/L carriers. This is <strong>differential susceptibility</strong>: some genes make you more sensitive to environment, for better AND worse.</p>
+                <p style="margin-top: 15px;"><strong>Knowing your genotype is not a diagnosis.</strong> It's information about tendencies that might help you understand your experience—why anxiety feels a certain way, why you seek novelty, why rejection hits hard. Understanding is empowering, not limiting.</p>
+            </div>
+        </div>
+
+        <!-- Key Statistics -->
+        <section class="stats-section">
+            <div class="section-header">
+                <h2>📊 The Numbers</h2>
+                <p>How much variation exists and what it explains</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">~10M</div>
+                    <div class="stat-label">Common SNPs that differ between any two people</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">30-50%</div>
+                    <div class="stat-label">Heritability of anxiety and depression traits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">~1-5%</div>
+                    <div class="stat-label">Variance explained by any single SNP</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1000s</div>
+                    <div class="stat-label">Genes involved in any complex behavioral trait</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Insight -->
+        <div class="insight-box">
+            <h3>🧠 The Key Insight</h3>
+            <p>
+                <strong>Your qualia are partially genetic.</strong> The way anxiety feels, how rejection lands, whether you crave novelty or prefer stability—these aren't just personality traits or choices. They're influenced by which receptor variants you inherited. Two people in identical situations can have genuinely different subjective experiences because their neurotransmitter systems work differently. This doesn't diminish anyone's experience—it explains why "just calm down" doesn't work, why some people thrive under pressure while others crumble, why your experience of the world is uniquely yours. <strong>Your genes don't determine your qualia, but they shape the hardware that produces them.</strong>
+            </p>
+        </div>
+
+        <!-- Qualia Reflection Section -->
+        <section class="qualia-section">
+            <h2>🪞 Qualia Reflection</h2>
+            <p class="qualia-intro">Consider how genetic variation might shape your own subjective experience.</p>
+
+            <div class="qualia-prompts">
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 1: Your Genetic Qualia</div>
+                    <div class="prompt-question">Think about your typical responses to stress, novelty, and social situations:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Are you a "warrior" (sharper under pressure) or "worrier" (overwhelmed by stress)? What does stress FEEL like in your body and mind?</li>
+                        <li>How intensely do you feel emotions? Do moods hit you hard and linger, or are you relatively even-keeled?</li>
+                        <li>Do you crave novelty and stimulation, or do you prefer routine and predictability? What does boredom feel like to you?</li>
+                        <li>How does rejection feel? A minor sting or a physical ache? How long does it last?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 2: Collaborative Elaboration</div>
+                    <div class="prompt-question">Compare stress and emotional responses with your group:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Do different people describe anxiety differently? What words do they use for the physical sensations?</li>
+                        <li>How do group members differ in their need for stimulation vs. calm? Can you see potential DRD4 variation?</li>
+                        <li>When someone describes rejection as "not a big deal" and another says it "ruins their day"—is one wrong? Or different hardware?</li>
+                        <li>How might these genetic differences affect relationships between people with different profiles?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 3: Meta-Reflection</div>
+                    <div class="prompt-question">If qualia are shaped by genetics:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Does knowing about genetic influences on anxiety make it more or less "your fault"? Does this matter?</li>
+                        <li>If someone's rejection sensitivity is partly genetic, how should we think about advice like "don't take it personally"?</li>
+                        <li>Would you want to know your genotypes? What would you do with that information?</li>
+                        <li>If we could edit these genes, should we? What would be lost if everyone had the "resilient" profile?</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Neuroscience • Teaching neuroscience through subjective experience • Herr Prof. Dr. Awesome-Sauce</p>
+            <p style="margin-top: 8px; font-size: 0.75rem;">Same neurotransmitter, different receptors, different qualia. Your experience is uniquely yours.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Gene tab selection
+        function selectGene(geneId) {
+            document.querySelectorAll('.gene-tab').forEach(tab => tab.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            document.querySelectorAll('.gene-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('gene-' + geneId).classList.add('active');
+        }
+
+        // Variant data
+        const variantData = {
+            comt: {
+                'val-val': {
+                    enzyme: "High COMT activity (4x faster than Met/Met). Dopamine is cleared quickly from the prefrontal cortex. At baseline, this means LESS dopamine available for cognition. But under stress, when catecholamines surge, rapid clearance prevents overwhelming the system.",
+                    stress: "Thrives under pressure. The 'warrior' profile. Stress-induced dopamine surges are quickly cleared, keeping the prefrontal cortex in its optimal range. Performance may actually IMPROVE under pressure. Less vulnerable to stress-related cognitive impairment.",
+                    qualia: "\"Pressure sharpens me. When stakes are high, I feel focused and clear. I don't understand why others crumble under stress—for me, it's activating. Baseline calm can actually feel a bit flat or understimulating. I seek out challenges.\"",
+                    meters: { stress: 80, cognition: 35, pain: 30 }
+                },
+                'val-met': {
+                    enzyme: "Intermediate COMT activity. Dopamine clearance is moderate—not too fast, not too slow. A balanced profile that shows characteristics of both warriors and worriers depending on context.",
+                    stress: "Moderate stress response. Can handle pressure reasonably well, though very high stress may start to impair function. Neither as stress-resilient as Val/Val nor as stress-sensitive as Met/Met.",
+                    qualia: "\"Stress affects me, but I can usually manage. High-stakes situations are challenging but not overwhelming. I can think under pressure, though I notice my mind working harder. I'm somewhere in the middle—neither thriving under fire nor crumbling.\"",
+                    meters: { stress: 50, cognition: 50, pain: 50 }
+                },
+                'met-met': {
+                    enzyme: "Low COMT activity (4x slower than Val/Val). Dopamine lingers in the prefrontal cortex. At baseline, this means MORE dopamine available—better working memory, cognitive flexibility, attention. But under stress, the system can become flooded.",
+                    stress: "Vulnerable under pressure. The 'worrier' profile. Stress-induced dopamine surges aren't cleared efficiently, pushing the prefrontal cortex past its optimal range. Can lead to anxiety, rumination, and cognitive impairment under stress. Benefits from low-stress environments.",
+                    qualia: "\"My mind races under pressure. I can't think clearly when stressed—there's too much happening in my head. But in calm situations, I'm sharp. I notice details others miss. I plan thoroughly. I just can't access that when stakes are high.\"",
+                    meters: { stress: 20, cognition: 75, pain: 75 }
+                }
+            },
+            slc6a4: {
+                'long-long': {
+                    density: "High transporter expression. Serotonin is efficiently cleared from synapses. This creates a more stable, less reactive serotonin system. Emotional responses are present but modulated.",
+                    environment: "Relatively resilient to environmental stress. Childhood adversity increases depression risk less than for S carriers. However, positive environments may provide less 'boost'—more stable across conditions, for better and worse.",
+                    qualia: "\"I'm pretty even-keeled. Bad things happen and I feel bad, but it passes. I don't get stuck in emotional states. Some people say I'm 'hard to read' emotionally. I feel things, but they don't overwhelm me. Stability is my baseline.\"",
+                    meters: { emotion: 30, env: 25 }
+                },
+                'long-short': {
+                    density: "Intermediate transporter expression. Serotonin reuptake is moderate—neither as efficient as L/L nor as slow as S/S. Environmental influences have moderate impact on mood and anxiety.",
+                    environment: "Moderately sensitive to environment. Bad experiences increase risk for depression more than L/L, but good experiences also provide more benefit. A 'differential susceptibility' pattern.",
+                    qualia: "\"My mood responds to my environment. Good times feel good; bad times hit me. I'm neither bulletproof nor fragile—I'm responsive. Stress affects me, but I can recover. I feel things, but I'm not overwhelmed by them.\"",
+                    meters: { emotion: 50, env: 50 }
+                },
+                'short-short': {
+                    density: "Low transporter expression. Serotonin stays in synapses longer, but receptor downregulation may occur. The system is highly reactive to perturbation. Emotional responses are intense and potentially prolonged.",
+                    environment: "Highly sensitive to environment—both bad AND good. Childhood adversity significantly increases depression risk. But enriched environments may produce exceptional outcomes. 'Orchid children'—fragile in harsh conditions, flourishing in nurturing ones.",
+                    qualia: "\"I feel everything intensely. Joy is vivid; pain is sharp. I can't just 'shake off' bad experiences—they stay with me. But beautiful moments are transcendent. I'm deeply affected by my surroundings, relationships, experiences. Everything matters.\"",
+                    meters: { emotion: 80, env: 85 }
+                }
+            },
+            drd4: {
+                'no-7r': {
+                    receptor: "Normal D4 receptor function. Standard dopamine binding efficiency means normal reward response to typical stimuli. Neither seeking extra stimulation nor especially sensitive to rewards.",
+                    behavior: "Typical levels of novelty-seeking and risk-taking. Routine is tolerable; novelty is pleasant but not compulsively sought. Attention is stable without extraordinary effort.",
+                    qualia: "\"Everyday life provides adequate stimulation. I enjoy new experiences but don't need them constantly. I can settle into routines without feeling restless. Rewards feel satisfying at normal levels—I don't need extreme experiences to feel alive.\"",
+                    meters: { novelty: 35, risk: 35 }
+                },
+                'one-7r': {
+                    receptor: "Partially blunted D4 receptor function. Dopamine binding is less efficient, requiring somewhat more stimulation to achieve the same reward response. Intermediate profile.",
+                    behavior: "Elevated novelty-seeking compared to non-carriers. May find routine somewhat unsatisfying. Somewhat increased risk for attention difficulties and risk-taking behavior. Benefits from varied, stimulating environments.",
+                    qualia: "\"I get bored more easily than some people. Routine feels stifling after a while—I need to mix things up. I'm drawn to new experiences, new people, new ideas. Sometimes I take risks others wouldn't. Sitting still feels like wasted time.\"",
+                    meters: { novelty: 60, risk: 55 }
+                },
+                'two-7r': {
+                    receptor: "Significantly blunted D4 receptor function. Requires substantially more dopamine to activate reward pathways. Standard stimuli may feel underwhelming. Associated with ADHD, novelty-seeking, risk-taking.",
+                    behavior: "High novelty-seeking and risk tolerance. Routine is genuinely aversive. Strong pull toward new, intense, stimulating experiences. May struggle with sustained attention on mundane tasks. Thrives in varied, high-stimulation environments.",
+                    qualia: "\"Normal life feels muted. I need intensity—new places, new experiences, new thrills. Routine is suffocating. I'm always looking for the next thing. People say I'm impulsive, but standing still feels like dying. I need to feel ALIVE.\"",
+                    meters: { novelty: 85, risk: 80 }
+                }
+            },
+            oprm1: {
+                'aa': {
+                    receptor: "Standard mu-opioid receptor binding. Normal endorphin response to both physical pleasure and social connection. Typical pain sensitivity and social bonding capacity.",
+                    social: "Rejection hurts, but at typical levels. Social exclusion activates pain systems normally. Neither hypersensitive to rejection nor unusually resilient to social pain.",
+                    qualia: "\"Rejection stings but doesn't devastate me. I value social connection and feel good around people I care about. Physical pain is unpleasant but manageable. Social bonds feel warm and rewarding—being included feels genuinely good.\"",
+                    meters: { rejection: 40, bonding: 50 }
+                },
+                'ag': {
+                    receptor: "Somewhat altered mu-opioid receptor function. May have increased sensitivity to both physical and social pain. Intermediate profile between A/A and G/G.",
+                    social: "Elevated rejection sensitivity. Social exclusion may hurt more intensely. Simultaneously, social connection may feel more rewarding—higher highs and lower lows in social domain.",
+                    qualia: "\"Social situations matter a lot to me. Being included feels wonderful; being excluded really hurts. I'm attuned to social dynamics—I notice when I'm in or out. Relationships feel high-stakes. Connection is deeply rewarding.\"",
+                    meters: { rejection: 60, bonding: 65 }
+                },
+                'gg': {
+                    receptor: "Altered mu-opioid receptor binding. Associated with increased sensitivity to social rejection and potentially higher need for social connection. Also associated with increased physical pain sensitivity.",
+                    social: "High rejection sensitivity. Social exclusion activates pain systems intensely—rejection can feel physically painful. Strong need for social connection and belonging. May be more vulnerable to social anxiety and loneliness.",
+                    qualia: "\"Rejection is devastating—it's not just emotional, it's physical. I feel it in my body. Being excluded from a group or left out of plans can ruin my entire day. But connection is everything—when I feel included and loved, nothing else matters.\"",
+                    meters: { rejection: 85, bonding: 80 }
+                }
+            }
+        };
+
+        function selectVariant(gene, variant) {
+            const section = document.getElementById('gene-' + gene);
+            section.querySelectorAll('.variant-option').forEach(opt => opt.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const data = variantData[gene][variant];
+
+            if (gene === 'comt') {
+                document.getElementById('comt-enzyme').textContent = data.enzyme;
+                document.getElementById('comt-stress').textContent = data.stress;
+                document.getElementById('comt-qualia').textContent = data.qualia;
+                document.getElementById('comt-meter-stress').style.width = data.meters.stress + '%';
+                document.getElementById('comt-meter-cognition').style.width = data.meters.cognition + '%';
+                document.getElementById('comt-meter-pain').style.width = data.meters.pain + '%';
+            } else if (gene === 'slc6a4') {
+                document.getElementById('slc6a4-density').textContent = data.density;
+                document.getElementById('slc6a4-environment').textContent = data.environment;
+                document.getElementById('slc6a4-qualia').textContent = data.qualia;
+                document.getElementById('slc6a4-meter-emotion').style.width = data.meters.emotion + '%';
+                document.getElementById('slc6a4-meter-env').style.width = data.meters.env + '%';
+            } else if (gene === 'drd4') {
+                document.getElementById('drd4-receptor').textContent = data.receptor;
+                document.getElementById('drd4-behavior').textContent = data.behavior;
+                document.getElementById('drd4-qualia').textContent = data.qualia;
+                document.getElementById('drd4-meter-novelty').style.width = data.meters.novelty + '%';
+                document.getElementById('drd4-meter-risk').style.width = data.meters.risk + '%';
+            } else if (gene === 'oprm1') {
+                document.getElementById('oprm1-receptor').textContent = data.receptor;
+                document.getElementById('oprm1-social').textContent = data.social;
+                document.getElementById('oprm1-qualia').textContent = data.qualia;
+                document.getElementById('oprm1-meter-rejection').style.width = data.meters.rejection + '%';
+                document.getElementById('oprm1-meter-bonding').style.width = data.meters.bonding + '%';
+            }
+        }
+    </script>
+</body>
+</html>

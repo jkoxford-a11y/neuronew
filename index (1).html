@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuroscience & Qualia | Interactive Learning Modules</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c2c54 0%, #474787 50%, #6c5ce7 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            opacity: 0.95;
+            color: #e8e8e8;
+        }
+
+        .author {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.95em;
+            margin-top: 15px;
+            color: #ffd700;
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            font-size: 1em;
+            margin-top: 10px;
+            color: #e8e8e8;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .intro {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-left: 5px solid #6c5ce7;
+        }
+
+        .intro h2 {
+            color: #2c2c54;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            color: #495057;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .module-card {
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .module-card:hover {
+            border-color: #6c5ce7;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.2);
+        }
+
+        .module-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .module-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: #6c5ce7;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .module-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2c2c54;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .module-question {
+            font-size: 0.95em;
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .module-description {
+            font-size: 0.9em;
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .module-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .feature-tag {
+            background: #f1f3f4;
+            color: #5f6368;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .pedagogy-section {
+            background: linear-gradient(135deg, #2c2c54, #474787);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .pedagogy-section h2 {
+            color: #ffd700;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        .pedagogy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .pedagogy-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .pedagogy-item h3 {
+            color: #ffd700;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .pedagogy-item p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .narrative-section {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .narrative-section h2 {
+            color: #2c2c54;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        .narrative-flow {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .narrative-step {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 15px 20px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .narrative-step .step-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: #6c5ce7;
+            margin-bottom: 5px;
+        }
+
+        .narrative-step .step-title {
+            font-weight: 600;
+            color: #2c2c54;
+            font-size: 0.9em;
+        }
+
+        .narrative-arrow {
+            color: #6c5ce7;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .narrative-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2c2c54 0%, #474787 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer-text {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .footer-text p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .unicorn-note {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #ffd700;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Neuroscience & Qualia</h1>
+            <p class="subtitle">Interactive Learning Modules</p>
+            <p class="author">Herr Prof. Dr. Awesome-Sauce</p>
+            <p class="tagline">Teaching neuroscience through subjective experience</p>
+        </header>
+
+        <div class="content">
+            <div class="intro">
+                <h2>🧠 Why Qualia?</h2>
+                <p>
+                    Students care about "What does this feel like?" before "What are the parts?" These modules connect neural mechanisms directly to subjective experience—showing how neurotransmitters create mood, how receptor polymorphisms create individual differences, and how prediction creates consciousness itself. Each module includes interactive demonstrations, clinical connections, and reflection prompts that require students to examine their own experience.
+                </p>
+            </div>
+
+            <div class="modules-grid">
+                <a href="module1_synaptogenesis_pruning.html" class="module-card">
+                    <div class="module-number">MODULE 1</div>
+                    <div class="module-title">Why Are You Not Who You Were at 5?</div>
+                    <div class="module-question">Synaptogenesis & Pruning</div>
+                    <div class="module-description">
+                        Your brain at age 2 had 50% MORE synapses than now. Explore the developmental timeline, use-it-or-lose-it principle, sensitive periods, and how pruning sculpted your current abilities and qualia.
+                    </div>
+                    <div class="module-features">
+                        <span class="feature-tag">Interactive Timeline</span>
+                        <span class="feature-tag">Pruning Simulator</span>
+                        <span class="feature-tag">Genie Case Study</span>
+                    </div>
+                </a>
+
+                <a href="module2_neurotransmitters.html" class="module-card">
+                    <div class="module-number">MODULE 2</div>
+                    <div class="module-title">Why Does Tuesday Feel Different Than Saturday?</div>
+                    <div class="module-question">Neurotransmitters & Mood</div>
+                    <div class="module-description">
+                        Same brain, different neurochemical soup, different qualia. Mix dopamine, serotonin, norepinephrine, GABA, and glutamate to see how they create subjective mood states.
+                    </div>
+                    <div class="module-features">
+                        <span class="feature-tag">NT Mixing Board</span>
+                        <span class="feature-tag">Mood Profile Output</span>
+                        <span class="feature-tag">Substance Effects</span>
+                    </div>
+                </a>
+
+                <a href="module3_receptor_polymorphisms.html" class="module-card">
+                    <div class="module-number">MODULE 3</div>
+                    <div class="module-title">Why Does Your Anxiety Feel Different Than Mine?</div>
+                    <div class="module-question">Receptor Polymorphisms</div>
+                    <div class="module-description">
+                        Same neurotransmitters, different receptors, different qualia. Explore COMT (warrior/worrier), SLC6A4 (serotonin sensitivity), DRD4 (novelty seeking), and OPRM1 (social pain).
+                    </div>
+                    <div class="module-features">
+                        <span class="feature-tag">Gene Explorer</span>
+                        <span class="feature-tag">Genotype Selector</span>
+                        <span class="feature-tag">Trait Meters</span>
+                    </div>
+                </a>
+
+                <a href="module5_social_bonding.html" class="module-card">
+                    <div class="module-number">MODULE 5</div>
+                    <div class="module-title">The Neurochemistry of Your Relationships</div>
+                    <div class="module-question">Social Bonding (Oxytocin & Vasopressin)</div>
+                    <div class="module-description">
+                        Connection is literal neurochemistry, not metaphor. Explore how oxytocin and vasopressin create bonding, why receptor polymorphisms create different attachment experiences, and the prairie vole mystery.
+                    </div>
+                    <div class="module-features">
+                        <span class="feature-tag">Social Scenarios</span>
+                        <span class="feature-tag">Receptor Polymorphisms</span>
+                        <span class="feature-tag">Attachment Styles</span>
+                    </div>
+                </a>
+
+                <a href="module6_predictive_processing.html" class="module-card">
+                    <div class="module-number">MODULE 6</div>
+                    <div class="module-title">Why Can't You Tickle Yourself?</div>
+                    <div class="module-question">Predictive Processing</div>
+                    <div class="module-description">
+                        Consciousness is a prediction machine that mistakes its own outputs for the world. Explore efference copy, prediction error, the rubber hand illusion, and clinical connections to schizophrenia and anxiety.
+                    </div>
+                    <div class="module-features">
+                        <span class="feature-tag">Prediction Error Demo</span>
+                        <span class="feature-tag">Rubber Hand Illusion</span>
+                        <span class="feature-tag">Clinical Connections</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="narrative-section">
+                <h2>📖 The Narrative Arc</h2>
+                <div class="narrative-flow">
+                    <div class="narrative-step">
+                        <div class="step-num">MODULE 1</div>
+                        <div class="step-title">Sculpted by Experience</div>
+                    </div>
+                    <span class="narrative-arrow">→</span>
+                    <div class="narrative-step">
+                        <div class="step-num">MODULE 2</div>
+                        <div class="step-title">Neurochemical Weather</div>
+                    </div>
+                    <span class="narrative-arrow">→</span>
+                    <div class="narrative-step">
+                        <div class="step-num">MODULE 3</div>
+                        <div class="step-title">Genetic Variation</div>
+                    </div>
+                    <span class="narrative-arrow">→</span>
+                    <div class="narrative-step">
+                        <div class="step-num">MODULE 5</div>
+                        <div class="step-title">Connection as Biology</div>
+                    </div>
+                    <span class="narrative-arrow">→</span>
+                    <div class="narrative-step">
+                        <div class="step-num">MODULE 6</div>
+                        <div class="step-title">Reality as Prediction</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pedagogy-section">
+                <h2>🎯 Pedagogical Approach</h2>
+                <div class="pedagogy-grid">
+                    <div class="pedagogy-item">
+                        <h3>Experience First</h3>
+                        <p>Each module starts with a question students care about—"What does this feel like?"—before explaining mechanisms.</p>
+                    </div>
+                    <div class="pedagogy-item">
+                        <h3>Interactive Discovery</h3>
+                        <p>Students manipulate variables, make predictions, and see real-time effects rather than passively receiving information.</p>
+                    </div>
+                    <div class="pedagogy-item">
+                        <h3>Three-Part Reflection</h3>
+                        <p>Every module ends with: (1) Your own qualia, (2) Collaborative comparison, (3) Meta-reflection on what differences mean.</p>
+                    </div>
+                    <div class="pedagogy-item">
+                        <h3>Anti-AI by Design</h3>
+                        <p>Reflection prompts require reporting personal subjective experience—can't be outsourced to AI assistants.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-text">
+                <p><strong>Neuroscience & Qualia Learning Modules</strong></p>
+                <p>Herr Prof. Dr. Awesome-Sauce</p>
+                <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">Interactive tools for teaching neuroscience through subjective experience</p>
+                <p class="unicorn-note">No unicorns were harmed in the making of these modules.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

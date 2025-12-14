@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Does Tuesday Feel Different Than Saturday?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dopamine: #FF6B35;
+            --serotonin: #7B68EE;
+            --norepinephrine: #00CED1;
+            --gaba: #32CD32;
+            --glutamate: #FF1493;
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a25;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --border: #2a2a3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(123, 104, 238, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .module-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--serotonin);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--dopamine), var(--serotonin), var(--norepinephrine));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Learning Objectives */
+        .objectives {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .objectives h2 {
+            font-size: 1.1rem;
+            color: var(--norepinephrine);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .objectives ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .objectives li {
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .objectives li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--serotonin);
+        }
+
+        /* Main Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mixing Board Section */
+        .mixing-board {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .mixing-board h2 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .mixing-board-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        /* Individual Sliders */
+        .nt-slider {
+            margin-bottom: 25px;
+        }
+
+        .nt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .nt-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nt-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .nt-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .nt-function {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .slider-track {
+            position: relative;
+            height: 8px;
+            background: var(--bg-elevated);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .slider-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.2s ease;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: transparent;
+            margin-top: -8px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            border: 3px solid var(--bg-dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            cursor: grab;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:active {
+            cursor: grabbing;
+            transform: scale(1.1);
+        }
+
+        /* Mood Profile Output */
+        .mood-profile {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .mood-profile h2 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .mood-profile-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .mood-meter {
+            margin-bottom: 20px;
+        }
+
+        .mood-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .mood-name {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .mood-endpoints {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .mood-bar-container {
+            height: 30px;
+            background: var(--bg-elevated);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mood-bar {
+            height: 100%;
+            border-radius: 15px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+        }
+
+        .mood-percentage {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 700;
+        }
+
+        .mood-description {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            min-height: 40px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Current State Card */
+        .current-state {
+            background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .state-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .state-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .state-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Scenarios Section */
+        .scenarios-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .scenarios-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .scenarios-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .scenario-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scenario-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--dopamine), var(--serotonin));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            border-color: var(--serotonin);
+            transform: translateY(-2px);
+        }
+
+        .scenario-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .scenario-card.active {
+            border-color: var(--serotonin);
+            background: rgba(123, 104, 238, 0.1);
+        }
+
+        .scenario-card.active::before {
+            transform: scaleX(1);
+        }
+
+        .scenario-emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .scenario-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .scenario-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Real-World Substances Section */
+        .substances-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .substances-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .substances-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .substance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .substance-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .substance-card:hover {
+            border-color: var(--norepinephrine);
+            transform: translateY(-2px);
+        }
+
+        .substance-card.active {
+            border-color: var(--norepinephrine);
+            background: rgba(0, 206, 209, 0.1);
+        }
+
+        .substance-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .substance-mechanism {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .substance-effects {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Qualia Reflection Section */
+        .qualia-section {
+            background: linear-gradient(135deg, rgba(123, 104, 238, 0.1), rgba(255, 107, 53, 0.1));
+            border: 1px solid var(--serotonin);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .qualia-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--serotonin);
+        }
+
+        .qualia-intro {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .qualia-prompts {
+            display: grid;
+            gap: 25px;
+        }
+
+        .qualia-prompt {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .prompt-part {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--dopamine);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .prompt-question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .prompt-subquestions {
+            list-style: none;
+        }
+
+        .prompt-subquestions li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .prompt-subquestions li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--serotonin);
+        }
+
+        /* Key Insight Box */
+        .insight-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--dopamine);
+            border-radius: 0 12px 12px 0;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .insight-box h3 {
+            font-size: 1rem;
+            color: var(--dopamine);
+            margin-bottom: 10px;
+        }
+
+        .insight-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* NT Info Tooltip */
+        .nt-info {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .nt-info .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 15px;
+            width: 250px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            z-index: 100;
+            transition: all 0.2s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .nt-info:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Reset Button */
+        .reset-btn {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .reset-btn:hover {
+            background: var(--border);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="module-tag">Neuroscience • Module 2 • Herr Prof. Dr. Awesome-Sauce</div>
+            <h1>Why Does Tuesday Feel Different Than Saturday?</h1>
+            <p class="subtitle">Your subjective experience of "Tuesday morning" vs. "Saturday morning" isn't just cognitive—it's neurochemical. Same brain, different soup, different qualia.</p>
+        </header>
+
+        <!-- Learning Objectives -->
+        <section class="objectives">
+            <h2>🎯 Learning Objectives</h2>
+            <ul>
+                <li>Identify the major neurotransmitter systems and their functions</li>
+                <li>Connect neurotransmitter activity to subjective mood states (qualia)</li>
+                <li>Explain how the same brain produces different experiences based on neurochemistry</li>
+                <li>Describe how common substances alter NT systems and thus qualia</li>
+                <li>Reflect on your own subjective experience as neurochemical activity</li>
+            </ul>
+        </section>
+
+        <!-- Main Interactive Area -->
+        <div class="main-grid">
+            <!-- Mixing Board -->
+            <section class="mixing-board">
+                <h2>🎛️ Neurotransmitter Mixing Board</h2>
+                <p class="mixing-board-subtitle">Adjust the levels and watch how your "mood profile" changes</p>
+
+                <!-- Dopamine -->
+                <div class="nt-slider">
+                    <div class="nt-header">
+                        <span class="nt-name">
+                            <span class="nt-dot" style="background: var(--dopamine)"></span>
+                            <span class="nt-info">
+                                Dopamine (DA)
+                                <span class="tooltip">The "wanting" neurotransmitter. Drives motivation, reward anticipation, and movement. Too little → Parkinson's, depression. Too much → mania, addiction.</span>
+                            </span>
+                        </span>
+                        <span class="nt-value" id="da-value">50%</span>
+                    </div>
+                    <div class="nt-function">Motivation • Reward • Movement • "Wanting"</div>
+                    <div class="slider-track">
+                        <div class="slider-fill" id="da-fill" style="background: var(--dopamine); width: 50%"></div>
+                    </div>
+                    <input type="range" id="da-slider" min="0" max="100" value="50">
+                </div>
+
+                <!-- Serotonin -->
+                <div class="nt-slider">
+                    <div class="nt-header">
+                        <span class="nt-name">
+                            <span class="nt-dot" style="background: var(--serotonin)"></span>
+                            <span class="nt-info">
+                                Serotonin (5-HT)
+                                <span class="tooltip">The "satisfaction" neurotransmitter. Regulates mood stability, sleep, appetite. Too little → depression, anxiety, OCD. Most antidepressants target this system.</span>
+                            </span>
+                        </span>
+                        <span class="nt-value" id="serotonin-value">50%</span>
+                    </div>
+                    <div class="nt-function">Mood stability • Contentment • Sleep • Appetite</div>
+                    <div class="slider-track">
+                        <div class="slider-fill" id="serotonin-fill" style="background: var(--serotonin); width: 50%"></div>
+                    </div>
+                    <input type="range" id="serotonin-slider" min="0" max="100" value="50">
+                </div>
+
+                <!-- Norepinephrine -->
+                <div class="nt-slider">
+                    <div class="nt-header">
+                        <span class="nt-name">
+                            <span class="nt-dot" style="background: var(--norepinephrine)"></span>
+                            <span class="nt-info">
+                                Norepinephrine (NE)
+                                <span class="tooltip">The "alertness" neurotransmitter. Drives arousal, attention, fight-or-flight response. Too little → fatigue, brain fog. Too much → anxiety, hypervigilance.</span>
+                            </span>
+                        </span>
+                        <span class="nt-value" id="ne-value">50%</span>
+                    </div>
+                    <div class="nt-function">Alertness • Attention • Arousal • Fight-or-flight</div>
+                    <div class="slider-track">
+                        <div class="slider-fill" id="ne-fill" style="background: var(--norepinephrine); width: 50%"></div>
+                    </div>
+                    <input type="range" id="ne-slider" min="0" max="100" value="50">
+                </div>
+
+                <!-- GABA -->
+                <div class="nt-slider">
+                    <div class="nt-header">
+                        <span class="nt-name">
+                            <span class="nt-dot" style="background: var(--gaba)"></span>
+                            <span class="nt-info">
+                                GABA
+                                <span class="tooltip">The "brake pedal" of the brain. Main inhibitory NT—calms neural activity. Too little → anxiety, seizures, insomnia. Alcohol and benzos enhance GABA.</span>
+                            </span>
+                        </span>
+                        <span class="nt-value" id="gaba-value">50%</span>
+                    </div>
+                    <div class="nt-function">Calm • Inhibition • Anti-anxiety • "Brakes"</div>
+                    <div class="slider-track">
+                        <div class="slider-fill" id="gaba-fill" style="background: var(--gaba); width: 50%"></div>
+                    </div>
+                    <input type="range" id="gaba-slider" min="0" max="100" value="50">
+                </div>
+
+                <!-- Glutamate -->
+                <div class="nt-slider">
+                    <div class="nt-header">
+                        <span class="nt-name">
+                            <span class="nt-dot" style="background: var(--glutamate)"></span>
+                            <span class="nt-info">
+                                Glutamate
+                                <span class="tooltip">The "gas pedal" of the brain. Main excitatory NT—drives learning, memory, neural activity. Too much → excitotoxicity, seizures. Too little → cognitive impairment.</span>
+                            </span>
+                        </span>
+                        <span class="nt-value" id="glutamate-value">50%</span>
+                    </div>
+                    <div class="nt-function">Excitation • Learning • Memory • "Gas pedal"</div>
+                    <div class="slider-track">
+                        <div class="slider-fill" id="glutamate-fill" style="background: var(--glutamate); width: 50%"></div>
+                    </div>
+                    <input type="range" id="glutamate-slider" min="0" max="100" value="50">
+                </div>
+
+                <button class="reset-btn" onclick="resetSliders()">↺ Reset to Baseline</button>
+            </section>
+
+            <!-- Mood Profile -->
+            <section class="mood-profile">
+                <h2>📊 Your Mood Profile</h2>
+                <p class="mood-profile-subtitle">How the NT levels translate to subjective experience</p>
+
+                <!-- Arousal -->
+                <div class="mood-meter">
+                    <div class="mood-label">
+                        <span class="mood-name">Arousal</span>
+                        <span class="mood-endpoints">Drowsy ← → Alert</span>
+                    </div>
+                    <div class="mood-bar-container">
+                        <div class="mood-bar" id="arousal-bar" style="width: 50%; background: linear-gradient(90deg, #4a5568, var(--norepinephrine))">
+                            <span class="mood-percentage" id="arousal-pct">50%</span>
+                        </div>
+                    </div>
+                    <p class="mood-description" id="arousal-desc">Neutral alertness—neither drowsy nor hypervigilant</p>
+                </div>
+
+                <!-- Valence -->
+                <div class="mood-meter">
+                    <div class="mood-label">
+                        <span class="mood-name">Valence</span>
+                        <span class="mood-endpoints">Negative ← → Positive</span>
+                    </div>
+                    <div class="mood-bar-container">
+                        <div class="mood-bar" id="valence-bar" style="width: 50%; background: linear-gradient(90deg, #4a5568, var(--serotonin))">
+                            <span class="mood-percentage" id="valence-pct">50%</span>
+                        </div>
+                    </div>
+                    <p class="mood-description" id="valence-desc">Emotionally neutral—neither particularly happy nor sad</p>
+                </div>
+
+                <!-- Motivation -->
+                <div class="mood-meter">
+                    <div class="mood-label">
+                        <span class="mood-name">Motivation</span>
+                        <span class="mood-endpoints">Apathetic ← → Driven</span>
+                    </div>
+                    <div class="mood-bar-container">
+                        <div class="mood-bar" id="motivation-bar" style="width: 50%; background: linear-gradient(90deg, #4a5568, var(--dopamine))">
+                            <span class="mood-percentage" id="motivation-pct">50%</span>
+                        </div>
+                    </div>
+                    <p class="mood-description" id="motivation-desc">Moderate drive—capable of action but not compelled</p>
+                </div>
+
+                <!-- Anxiety -->
+                <div class="mood-meter">
+                    <div class="mood-label">
+                        <span class="mood-name">Anxiety</span>
+                        <span class="mood-endpoints">Calm ← → Anxious</span>
+                    </div>
+                    <div class="mood-bar-container">
+                        <div class="mood-bar" id="anxiety-bar" style="width: 30%; background: linear-gradient(90deg, var(--gaba), #e53e3e)">
+                            <span class="mood-percentage" id="anxiety-pct">30%</span>
+                        </div>
+                    </div>
+                    <p class="mood-description" id="anxiety-desc">Relatively calm—GABA keeping things in check</p>
+                </div>
+
+                <!-- Focus -->
+                <div class="mood-meter">
+                    <div class="mood-label">
+                        <span class="mood-name">Focus</span>
+                        <span class="mood-endpoints">Scattered ← → Laser-focused</span>
+                    </div>
+                    <div class="mood-bar-container">
+                        <div class="mood-bar" id="focus-bar" style="width: 50%; background: linear-gradient(90deg, #4a5568, var(--glutamate))">
+                            <span class="mood-percentage" id="focus-pct">50%</span>
+                        </div>
+                    </div>
+                    <p class="mood-description" id="focus-desc">Average concentration—can focus but easily distracted</p>
+                </div>
+
+                <!-- Current State Summary -->
+                <div class="current-state">
+                    <div class="state-label">Current Neurochemical State</div>
+                    <div class="state-title" id="state-title">Baseline Normal</div>
+                    <p class="state-description" id="state-description">This is your brain at rest—moderate levels across all neurotransmitters. You feel... okay. Not great, not terrible. Just existing.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Scenarios Section -->
+        <section class="scenarios-section">
+            <h2>🎭 Real-World Scenarios</h2>
+            <p class="scenarios-subtitle">Click a scenario to see the predicted neurotransmitter profile. Notice how the SAME brain creates DIFFERENT qualia.</p>
+
+            <div class="scenario-grid">
+                <div class="scenario-card" onclick="loadScenario('monday-exam')">
+                    <div class="scenario-emoji">😰</div>
+                    <div class="scenario-title">Monday 7am: Exam Today</div>
+                    <div class="scenario-description">You didn't sleep well. There's an exam in 2 hours. Your stomach is tight.</div>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('saturday-morning')">
+                    <div class="scenario-emoji">😌</div>
+                    <div class="scenario-title">Saturday 10am: Nothing Planned</div>
+                    <div class="scenario-description">You slept in. No obligations. Coffee in hand. The whole day is yours.</div>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('flow-state')">
+                    <div class="scenario-emoji">🎯</div>
+                    <div class="scenario-title">Deep in Flow State</div>
+                    <div class="scenario-description">You're working on something you love. Time disappears. Everything clicks.</div>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('depression')">
+                    <div class="scenario-emoji">😔</div>
+                    <div class="scenario-title">Depressive Episode</div>
+                    <div class="scenario-description">Nothing seems worth doing. The world feels gray. Getting out of bed is hard.</div>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('anxiety-attack')">
+                    <div class="scenario-emoji">😱</div>
+                    <div class="scenario-title">Anxiety Attack</div>
+                    <div class="scenario-description">Heart racing. Can't catch your breath. Something terrible is about to happen.</div>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('post-exercise')">
+                    <div class="scenario-emoji">🏃</div>
+                    <div class="scenario-title">Post-Exercise High</div>
+                    <div class="scenario-description">Just finished a great workout. Endorphins flowing. Everything feels possible.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Substances Section -->
+        <section class="substances-section">
+            <h2>☕ Common Substances & Your Qualia</h2>
+            <p class="substances-subtitle">Click to see how everyday substances alter your neurotransmitter profile</p>
+
+            <div class="substance-grid">
+                <div class="substance-card" onclick="loadSubstance('caffeine')">
+                    <div class="substance-name">☕ Caffeine</div>
+                    <div class="substance-mechanism">Adenosine antagonist → ↑NE, ↑DA</div>
+                    <div class="substance-effects">That "alert" feeling after coffee? Blocked adenosine lets NE and DA flow freely.</div>
+                </div>
+
+                <div class="substance-card" onclick="loadSubstance('alcohol')">
+                    <div class="substance-name">🍺 Alcohol</div>
+                    <div class="substance-mechanism">GABA agonist + Glutamate antagonist</div>
+                    <div class="substance-effects">Enhances inhibition, reduces excitation. That's why you feel relaxed... then sedated.</div>
+                </div>
+
+                <div class="substance-card" onclick="loadSubstance('ssri')">
+                    <div class="substance-name">💊 SSRIs</div>
+                    <div class="substance-mechanism">Serotonin reuptake inhibitor</div>
+                    <div class="substance-effects">More serotonin stays in the synapse longer. Takes weeks to change mood—why?</div>
+                </div>
+
+                <div class="substance-card" onclick="loadSubstance('adderall')">
+                    <div class="substance-name">💊 Adderall</div>
+                    <div class="substance-mechanism">↑DA, ↑NE release</div>
+                    <div class="substance-effects">Floods the system with dopamine and norepinephrine. Focus intensifies dramatically.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Insight -->
+        <div class="insight-box">
+            <h3>🧠 The Key Insight</h3>
+            <p>You are the SAME person on Monday morning and Saturday morning. Same brain, same neurons, same you. But your <strong>subjective experience</strong>—your qualia—is completely different. The only thing that changed was the neurochemical soup your neurons are swimming in. This is what it means to say that <strong>mood is neurochemistry experienced from the inside.</strong> When you feel anxious, that IS low GABA and high NE. When you feel motivated, that IS dopamine. The qualia and the chemistry aren't two different things—they're the same thing described from different perspectives.</p>
+        </div>
+
+        <!-- Qualia Reflection Section -->
+        <section class="qualia-section">
+            <h2>🪞 Qualia Reflection</h2>
+            <p class="qualia-intro">Now that you've explored how neurotransmitter levels create different subjective experiences, reflect on your own qualia.</p>
+
+            <div class="qualia-prompts">
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 1: Your Neurochemical Qualia</div>
+                    <div class="prompt-question">Think about a time your mood shifted noticeably—maybe you felt "off" in the morning but better by afternoon, or anxious before an event but calm after.</div>
+                    <ul class="prompt-subquestions">
+                        <li>What did that shift FEEL like from the inside?</li>
+                        <li>Can you identify which neurotransmitter systems might have been involved?</li>
+                        <li>Did the shift feel like "you" changed, or like the same "you" in different chemical weather?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 2: Collaborative Elaboration</div>
+                    <div class="prompt-question">Share your scenario with your group. Compare:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Do others describe the same qualia for similar situations, or different?</li>
+                        <li>If your classmate says "anxiety feels like electricity under my skin" and you say "anxiety feels like a weight on my chest"—are you experiencing the same thing?</li>
+                        <li>How might different baseline neurotransmitter levels create different subjective experiences of the "same" situation?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 3: Meta-Reflection</div>
+                    <div class="prompt-question">If your mood IS your neurochemistry experienced from the inside:</div>
+                    <ul class="prompt-subquestions">
+                        <li>What does this mean for the concept of "free will" in mood regulation?</li>
+                        <li>Does knowing the neurochemistry of depression make it more or less "real" as an experience?</li>
+                        <li>If a drug changes your qualia, is it changing "you" or just the chemistry that produces the experience of being you?</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Neuroscience • Teaching neuroscience through subjective experience • Herr Prof. Dr. Awesome-Sauce</p>
+            <p style="margin-top: 8px; font-size: 0.75rem;">Remember: The same YOU experiences radically different qualia based on neurochemistry alone.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Slider references
+        const sliders = {
+            da: document.getElementById('da-slider'),
+            serotonin: document.getElementById('serotonin-slider'),
+            ne: document.getElementById('ne-slider'),
+            gaba: document.getElementById('gaba-slider'),
+            glutamate: document.getElementById('glutamate-slider')
+        };
+
+        // Update functions
+        function updateSliderVisual(id, value) {
+            document.getElementById(`${id}-value`).textContent = `${value}%`;
+            document.getElementById(`${id}-fill`).style.width = `${value}%`;
+        }
+
+        function calculateMoodProfile() {
+            const da = parseInt(sliders.da.value);
+            const serotonin = parseInt(sliders.serotonin.value);
+            const ne = parseInt(sliders.ne.value);
+            const gaba = parseInt(sliders.gaba.value);
+            const glutamate = parseInt(sliders.glutamate.value);
+
+            // Calculate mood dimensions
+            const arousal = Math.min(100, Math.max(0, (ne * 0.5 + glutamate * 0.3 + da * 0.2)));
+            const valence = Math.min(100, Math.max(0, (serotonin * 0.5 + da * 0.3 + gaba * 0.2)));
+            const motivation = Math.min(100, Math.max(0, (da * 0.6 + ne * 0.2 + glutamate * 0.2)));
+            const anxiety = Math.min(100, Math.max(0, (100 - gaba) * 0.4 + ne * 0.4 + glutamate * 0.2));
+            const focus = Math.min(100, Math.max(0, (da * 0.3 + ne * 0.3 + glutamate * 0.2 + (100 - anxiety) * 0.2)));
+
+            // Update bars
+            updateMoodBar('arousal', arousal);
+            updateMoodBar('valence', valence);
+            updateMoodBar('motivation', motivation);
+            updateMoodBar('anxiety', anxiety);
+            updateMoodBar('focus', focus);
+
+            // Update descriptions
+            updateMoodDescription('arousal', arousal);
+            updateMoodDescription('valence', valence);
+            updateMoodDescription('motivation', motivation);
+            updateMoodDescription('anxiety', anxiety);
+            updateMoodDescription('focus', focus);
+
+            // Update overall state
+            updateOverallState(da, serotonin, ne, gaba, glutamate);
+        }
+
+        function updateMoodBar(id, value) {
+            const bar = document.getElementById(`${id}-bar`);
+            const pct = document.getElementById(`${id}-pct`);
+            bar.style.width = `${value}%`;
+            pct.textContent = `${Math.round(value)}%`;
+        }
+
+        function updateMoodDescription(id, value) {
+            const desc = document.getElementById(`${id}-desc`);
+            const descriptions = {
+                arousal: {
+                    low: "Drowsy, sluggish—struggling to keep eyes open",
+                    mid: "Neutral alertness—neither drowsy nor hypervigilant",
+                    high: "Hyperalert, wired—every stimulus feels intense"
+                },
+                valence: {
+                    low: "Negative mood—world feels gray and joyless",
+                    mid: "Emotionally neutral—neither particularly happy nor sad",
+                    high: "Positive mood—sense of wellbeing and contentment"
+                },
+                motivation: {
+                    low: "Apathetic—nothing seems worth doing",
+                    mid: "Moderate drive—capable of action but not compelled",
+                    high: "Driven—strong urge to pursue goals and rewards"
+                },
+                anxiety: {
+                    low: "Calm, relaxed—no sense of threat or worry",
+                    mid: "Mild tension—manageable background unease",
+                    high: "Anxious, on edge—racing thoughts, physical tension"
+                },
+                focus: {
+                    low: "Scattered, distractible—can't hold a thought",
+                    mid: "Average concentration—can focus but easily distracted",
+                    high: "Laser-focused—deep concentration, time disappears"
+                }
+            };
+
+            if (value < 35) {
+                desc.textContent = descriptions[id].low;
+            } else if (value < 65) {
+                desc.textContent = descriptions[id].mid;
+            } else {
+                desc.textContent = descriptions[id].high;
+            }
+        }
+
+        function updateOverallState(da, serotonin, ne, gaba, glutamate) {
+            const title = document.getElementById('state-title');
+            const desc = document.getElementById('state-description');
+
+            // Determine dominant state
+            if (da > 75 && ne > 70) {
+                title.textContent = "🚀 Hyperfocused & Driven";
+                title.style.color = "var(--dopamine)";
+                desc.textContent = "High dopamine + norepinephrine = intense motivation and alertness. This is the 'zone'—but sustained, it's exhausting. Your brain is burning through resources.";
+            } else if (serotonin > 70 && gaba > 60 && ne < 40) {
+                title.textContent = "😌 Calm & Content";
+                title.style.color = "var(--gaba)";
+                desc.textContent = "High serotonin + GABA with low norepinephrine = peaceful satisfaction. This is the 'Saturday morning' feeling—present, relaxed, at ease.";
+            } else if (ne > 70 && gaba < 30) {
+                title.textContent = "😰 Anxious & On Edge";
+                title.style.color = "#e53e3e";
+                desc.textContent = "High norepinephrine without GABA's brakes = fight-or-flight without resolution. Everything feels urgent and threatening. Classic anxiety profile.";
+            } else if (da < 30 && serotonin < 30) {
+                title.textContent = "😔 Flat & Unmotivated";
+                title.style.color = "#718096";
+                desc.textContent = "Low dopamine + low serotonin = anhedonia. Nothing seems worth doing, nothing brings pleasure. This is what depression often looks like neurochemically.";
+            } else if (glutamate > 80 && gaba < 30) {
+                title.textContent = "⚡ Overstimulated";
+                title.style.color = "var(--glutamate)";
+                desc.textContent = "High excitation without inhibition = neural overdrive. Racing thoughts, sensory overload, can't settle. The brain's gas pedal is floored with no brakes.";
+            } else if (gaba > 80 && glutamate < 30) {
+                title.textContent = "😴 Sedated";
+                title.style.color = "var(--gaba)";
+                desc.textContent = "Heavy inhibition, minimal excitation = sluggish, sedated, foggy. Too much GABA without glutamate to balance = cognitive slowdown.";
+            } else {
+                title.textContent = "⚖️ Baseline Normal";
+                title.style.color = "var(--text-primary)";
+                desc.textContent = "Moderate levels across all neurotransmitters. You feel... okay. Not great, not terrible. This is homeostasis—your brain's default operating mode.";
+            }
+        }
+
+        // Scenario presets
+        const scenarios = {
+            'monday-exam': { da: 45, serotonin: 30, ne: 85, gaba: 20, glutamate: 75 },
+            'saturday-morning': { da: 55, serotonin: 75, ne: 30, gaba: 70, glutamate: 45 },
+            'flow-state': { da: 85, serotonin: 60, ne: 65, gaba: 50, glutamate: 70 },
+            'depression': { da: 20, serotonin: 20, ne: 25, gaba: 45, glutamate: 35 },
+            'anxiety-attack': { da: 30, serotonin: 25, ne: 90, gaba: 15, glutamate: 80 },
+            'post-exercise': { da: 75, serotonin: 70, ne: 55, gaba: 60, glutamate: 55 }
+        };
+
+        function loadScenario(scenarioId) {
+            // Remove active class from all cards
+            document.querySelectorAll('.scenario-card').forEach(card => card.classList.remove('active'));
+            // Add active class to clicked card
+            event.currentTarget.classList.add('active');
+
+            const preset = scenarios[scenarioId];
+            animateSliders(preset);
+        }
+
+        // Substance presets
+        const substances = {
+            'caffeine': { da: 65, serotonin: 50, ne: 75, gaba: 45, glutamate: 60 },
+            'alcohol': { da: 55, serotonin: 55, ne: 35, gaba: 80, glutamate: 25 },
+            'ssri': { da: 50, serotonin: 75, ne: 50, gaba: 55, glutamate: 50 },
+            'adderall': { da: 90, serotonin: 50, ne: 85, gaba: 40, glutamate: 70 }
+        };
+
+        function loadSubstance(substanceId) {
+            // Remove active class from all cards
+            document.querySelectorAll('.substance-card').forEach(card => card.classList.remove('active'));
+            // Add active class to clicked card
+            event.currentTarget.classList.add('active');
+
+            const preset = substances[substanceId];
+            animateSliders(preset);
+        }
+
+        function animateSliders(preset) {
+            const duration = 500;
+            const steps = 30;
+            const interval = duration / steps;
+
+            const startValues = {
+                da: parseInt(sliders.da.value),
+                serotonin: parseInt(sliders.serotonin.value),
+                ne: parseInt(sliders.ne.value),
+                gaba: parseInt(sliders.gaba.value),
+                glutamate: parseInt(sliders.glutamate.value)
+            };
+
+            let step = 0;
+            const animation = setInterval(() => {
+                step++;
+                const progress = step / steps;
+                const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+
+                Object.keys(preset).forEach(key => {
+                    const current = startValues[key] + (preset[key] - startValues[key]) * eased;
+                    sliders[key].value = current;
+                    updateSliderVisual(key, Math.round(current));
+                });
+
+                calculateMoodProfile();
+
+                if (step >= steps) {
+                    clearInterval(animation);
+                }
+            }, interval);
+        }
+
+        function resetSliders() {
+            // Remove active classes
+            document.querySelectorAll('.scenario-card, .substance-card').forEach(card => card.classList.remove('active'));
+            
+            animateSliders({ da: 50, serotonin: 50, ne: 50, gaba: 50, glutamate: 50 });
+        }
+
+        // Event listeners
+        Object.keys(sliders).forEach(key => {
+            sliders[key].addEventListener('input', (e) => {
+                updateSliderVisual(key, e.target.value);
+                calculateMoodProfile();
+                // Remove active states when manually adjusting
+                document.querySelectorAll('.scenario-card, .substance-card').forEach(card => card.classList.remove('active'));
+            });
+        });
+
+        // Initialize
+        calculateMoodProfile();
+    </script>
+</body>
+</html>

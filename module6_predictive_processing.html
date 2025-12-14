@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Can't You Tickle Yourself?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --prediction: #00D9FF;
+            --error: #FF6B6B;
+            --match: #6BFF8E;
+            --attention: #FFD93D;
+            --consciousness: #B388FF;
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a25;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --border: #2a2a3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: radial-gradient(ellipse, rgba(0, 217, 255, 0.15) 0%, rgba(179, 136, 255, 0.1) 50%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .module-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--prediction);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--prediction), var(--consciousness));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Learning Objectives */
+        .objectives {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .objectives h2 {
+            font-size: 1.1rem;
+            color: var(--prediction);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .objectives ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
+        .objectives li {
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .objectives li::before {
+            content: '⟳';
+            position: absolute;
+            left: 0;
+            color: var(--prediction);
+        }
+
+        /* Section styling */
+        .section-header {
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* The Hook Section */
+        .hook-section {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(179, 136, 255, 0.1));
+            border: 1px solid var(--prediction);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .hook-question {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .hook-answer {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 850px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .hook-answer strong {
+            color: var(--prediction);
+        }
+
+        /* Try It Section */
+        .try-it-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .try-it-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .try-it-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .try-it-card {
+            background: var(--bg-elevated);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .try-it-card.self {
+            border-color: var(--match);
+        }
+
+        .try-it-card.other {
+            border-color: var(--error);
+        }
+
+        .try-it-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .try-it-card.self .try-it-label {
+            color: var(--match);
+        }
+
+        .try-it-card.other .try-it-label {
+            color: var(--error);
+        }
+
+        .try-it-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .try-it-instruction {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .prediction-box {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .prediction-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .prediction-row:last-child {
+            border-bottom: none;
+        }
+
+        .prediction-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .prediction-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .result-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .result-tag.match {
+            background: rgba(107, 255, 142, 0.2);
+            color: var(--match);
+        }
+
+        .result-tag.mismatch {
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--error);
+        }
+
+        /* Core Concept Section */
+        .concept-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .concept-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .concept-node {
+            background: var(--bg-elevated);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            min-width: 180px;
+            transition: all 0.3s ease;
+        }
+
+        .concept-node.prediction {
+            border-color: var(--prediction);
+        }
+
+        .concept-node.input {
+            border-color: var(--attention);
+        }
+
+        .concept-node.error {
+            border-color: var(--error);
+        }
+
+        .concept-node.consciousness {
+            border-color: var(--consciousness);
+        }
+
+        .node-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .node-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .node-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .concept-arrow {
+            font-size: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .concept-explanation {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        .concept-explanation h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--prediction);
+        }
+
+        .concept-explanation p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .concept-explanation p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Interactive Prediction Error Demo */
+        .demo-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .demo-panel {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .demo-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scenario-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .scenario-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+        }
+
+        .scenario-btn:hover {
+            border-color: var(--prediction);
+        }
+
+        .scenario-btn.active {
+            border-color: var(--prediction);
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .scenario-btn .scenario-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .scenario-btn .scenario-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .prediction-display {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .display-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .display-content {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .error-meter {
+            margin-top: 20px;
+        }
+
+        .meter-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .meter-bar {
+            height: 12px;
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s ease, background 0.5s ease;
+        }
+
+        .qualia-output {
+            background: linear-gradient(135deg, rgba(179, 136, 255, 0.1), transparent);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .qualia-label {
+            font-size: 0.8rem;
+            color: var(--consciousness);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .qualia-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Examples Grid */
+        .examples-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .example-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .example-card:hover {
+            border-color: var(--prediction);
+            transform: translateY(-3px);
+        }
+
+        .example-card.active {
+            border-color: var(--prediction);
+            background: rgba(0, 217, 255, 0.05);
+        }
+
+        .example-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .example-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+        }
+
+        .example-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .example-detail {
+            display: none;
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 25px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .example-detail.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-title {
+            font-size: 0.85rem;
+            color: var(--prediction);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .detail-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Clinical Connections */
+        .clinical-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .clinical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .clinical-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clinical-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .clinical-card.schizophrenia::before {
+            background: linear-gradient(90deg, var(--error), rgba(255, 107, 107, 0.3));
+        }
+
+        .clinical-card.anxiety::before {
+            background: linear-gradient(90deg, var(--attention), rgba(255, 217, 61, 0.3));
+        }
+
+        .clinical-card.autism::before {
+            background: linear-gradient(90deg, var(--consciousness), rgba(179, 136, 255, 0.3));
+        }
+
+        .clinical-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .clinical-subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .clinical-explanation {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .clinical-qualia {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .clinical-qualia-label {
+            font-size: 0.75rem;
+            color: var(--consciousness);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .clinical-qualia-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* Key Insight Box */
+        .insight-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--prediction);
+            border-radius: 0 12px 12px 0;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .insight-box h3 {
+            font-size: 1rem;
+            color: var(--prediction);
+            margin-bottom: 10px;
+        }
+
+        .insight-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Rubber Hand Illusion Section */
+        .illusion-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+        }
+
+        .illusion-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .illusion-step {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--prediction);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 15px;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .illusion-explanation {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(179, 136, 255, 0.1));
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .illusion-explanation h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--prediction);
+        }
+
+        .illusion-explanation p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Qualia Reflection Section */
+        .qualia-section {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(179, 136, 255, 0.1));
+            border: 1px solid var(--prediction);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .qualia-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--prediction);
+        }
+
+        .qualia-intro {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .qualia-prompts {
+            display: grid;
+            gap: 25px;
+        }
+
+        .qualia-prompt {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .prompt-part {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--consciousness);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .prompt-question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .prompt-subquestions {
+            list-style: none;
+        }
+
+        .prompt-subquestions li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .prompt-subquestions li::before {
+            content: '⟳';
+            position: absolute;
+            left: 0;
+            color: var(--prediction);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="module-tag">Neuroscience • Module 6 • Herr Prof. Dr. Awesome-Sauce</div>
+            <h1>Why Can't You Tickle Yourself?</h1>
+            <p class="subtitle">Your brain constantly predicts incoming sensory information. When prediction matches reality, you barely notice. When it doesn't—that's what consciousness highlights. This changes everything about how you experience the world.</p>
+        </header>
+
+        <!-- Learning Objectives -->
+        <section class="objectives">
+            <h2>🎯 Learning Objectives</h2>
+            <ul>
+                <li>Explain the predictive processing model of brain function</li>
+                <li>Define prediction error and its role in conscious experience</li>
+                <li>Describe how efference copies cancel self-generated sensations</li>
+                <li>Connect predictive processing failures to clinical conditions</li>
+                <li>Reflect on your own experience as prediction and error</li>
+            </ul>
+        </section>
+
+        <!-- The Hook -->
+        <section class="hook-section">
+            <div class="hook-question">Try it right now: tickle the bottom of your foot.</div>
+            <p class="hook-answer">Nothing, right? Now imagine someone else doing it—even that thought might make you flinch. <strong>Same sensory receptors. Same nerve pathways. Completely different qualia.</strong> Why? Because when YOU generate the action, your brain predicts the sensation before it arrives and cancels it out. The tickle only "exists" in consciousness when it's <strong>unpredicted</strong>. This isn't a quirk—it's a window into how your entire conscious experience is constructed.</p>
+        </section>
+
+        <!-- Try It Yourself -->
+        <section class="try-it-section">
+            <div class="section-header">
+                <h2>🖐️ The Efference Copy Demonstration</h2>
+                <p>Your brain sends a copy of every motor command to sensory areas, predicting what you'll feel</p>
+            </div>
+
+            <div class="try-it-grid">
+                <div class="try-it-card self">
+                    <div class="try-it-label">Self-Generated Touch</div>
+                    <div class="try-it-title">Touch Your Own Arm</div>
+                    <p class="try-it-instruction">Use your right hand to stroke your left forearm. Notice the sensation. Now do it again, paying attention to how "intense" it feels.</p>
+                    
+                    <div class="prediction-box">
+                        <div class="prediction-row">
+                            <span class="prediction-label">Motor Command Sent</span>
+                            <span class="prediction-value">✓ "Move right hand"</span>
+                        </div>
+                        <div class="prediction-row">
+                            <span class="prediction-label">Efference Copy Created</span>
+                            <span class="prediction-value">✓ "Expect touch on left arm"</span>
+                        </div>
+                        <div class="prediction-row">
+                            <span class="prediction-label">Actual Sensation</span>
+                            <span class="prediction-value">Touch on left arm</span>
+                        </div>
+                        <div class="prediction-row">
+                            <span class="prediction-label">Prediction Error</span>
+                            <span class="result-tag match">≈ Zero (Match!)</span>
+                        </div>
+                        <div class="prediction-row">
+                            <span class="prediction-label">Conscious Experience</span>
+                            <span class="prediction-value">Muted, unremarkable</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="try-it-card other">
+                    <div class="try-it-label">Other-Generated Touch</div>
+                    <div class="try-it-title">Have Someone Touch Your Arm</div>
+                    <p class="try-it-instruction">Ask a partner to stroke your forearm in the same way. Or just imagine it vividly. Notice how different it feels—even though the physical sensation is identical.</p>
+                    
+                    <div class="prediction-box">
+                        <div class="prediction-row">
+                            <span class="prediction-label">Motor Command Sent</span>
+                            <span class="prediction-value">✗ None (not your action)</span>
+                        </div>
+                        <div class="prediction-row">
+                            <span class="prediction-label">Efference Copy Created</span>
+                            <span class="prediction-value">✗ No prediction available</span>
+                        </div>
+                        <div class="prediction-row">
+                            <span class="prediction-label">Actual Sensation</span>
+                            <span class="prediction-value">Touch on left arm</span>
+                        </div>
+                        <div class="prediction-row">
+                            <span class="prediction-label">Prediction Error</span>
+                            <span class="result-tag mismatch">High (Surprise!)</span>
+                        </div>
+                        <div class="prediction-row">
+                            <span class="prediction-label">Conscious Experience</span>
+                            <span class="prediction-value">Vivid, attention-grabbing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Concept -->
+        <section class="concept-section">
+            <div class="section-header">
+                <h2>🧠 The Predictive Brain</h2>
+                <p>Your brain isn't passively receiving information—it's actively predicting it</p>
+            </div>
+
+            <div class="concept-diagram">
+                <div class="concept-node prediction">
+                    <div class="node-icon">🔮</div>
+                    <div class="node-title">Prediction</div>
+                    <div class="node-desc">What brain expects</div>
+                </div>
+                <div class="concept-arrow">⟷</div>
+                <div class="concept-node input">
+                    <div class="node-icon">📡</div>
+                    <div class="node-title">Sensory Input</div>
+                    <div class="node-desc">What actually arrives</div>
+                </div>
+                <div class="concept-arrow">→</div>
+                <div class="concept-node error">
+                    <div class="node-icon">⚡</div>
+                    <div class="node-title">Prediction Error</div>
+                    <div class="node-desc">The mismatch signal</div>
+                </div>
+                <div class="concept-arrow">→</div>
+                <div class="concept-node consciousness">
+                    <div class="node-icon">✨</div>
+                    <div class="node-title">Consciousness</div>
+                    <div class="node-desc">What you experience</div>
+                </div>
+            </div>
+
+            <div class="concept-explanation">
+                <h3>The Radical Idea</h3>
+                <p><strong>You don't experience the world directly. You experience your brain's predictions about the world, updated by prediction errors.</strong></p>
+                <p>Most of what you "see," "hear," and "feel" is actually prediction—your brain's best guess about what's out there based on past experience. Sensory input doesn't create your experience; it <em>corrects</em> it. When prediction matches input, nothing special happens—the world feels stable and unsurprising. When prediction fails, error signals propagate up, grab attention, update the model, and create the vivid qualia of "noticing something."</p>
+                <p>This is why you don't notice the feeling of your clothes until you think about it. Your brain predicted that sensation, so it got cancelled. <strong>Consciousness is largely a prediction error detection system.</strong></p>
+            </div>
+        </section>
+
+        <!-- Interactive Demo -->
+        <section class="demo-section">
+            <div class="section-header">
+                <h2>⚡ Prediction Error in Action</h2>
+                <p>Select a scenario to see how prediction and error create different qualia</p>
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-panel">
+                    <div class="demo-title">📋 Select Scenario</div>
+                    
+                    <div class="scenario-selector">
+                        <button class="scenario-btn active" onclick="selectScenario('stair')">
+                            <div class="scenario-name">The Missing Stair</div>
+                            <div class="scenario-desc">You expect one more step at the bottom of the stairs</div>
+                        </button>
+                        <button class="scenario-btn" onclick="selectScenario('orange')">
+                            <div class="scenario-name">Orange Juice Surprise</div>
+                            <div class="scenario-desc">You take a sip expecting milk</div>
+                        </button>
+                        <button class="scenario-btn" onclick="selectScenario('name')">
+                            <div class="scenario-name">Hearing Your Name</div>
+                            <div class="scenario-desc">Someone says your name in a crowded room</div>
+                        </button>
+                        <button class="scenario-btn" onclick="selectScenario('typo')">
+                            <div class="scenario-name">The Typo You Missed</div>
+                            <div class="scenario-desc">Reading a sentence with an error</div>
+                        </button>
+                        <button class="scenario-btn" onclick="selectScenario('face')">
+                            <div class="scenario-name">Face in the Crowd</div>
+                            <div class="scenario-desc">You think you see someone you know</div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="demo-panel">
+                    <div class="demo-title">📊 Prediction vs. Reality</div>
+                    
+                    <div class="prediction-display">
+                        <div class="display-label">Brain's Prediction</div>
+                        <div class="display-content" id="prediction-content">
+                            "There will be one more stair step. Prepare leg muscles for impact at standard stair depth."
+                        </div>
+                    </div>
+
+                    <div class="prediction-display">
+                        <div class="display-label">Actual Input</div>
+                        <div class="display-content" id="input-content">
+                            Floor arrives 7 inches earlier than predicted. Unexpected impact force through leg.
+                        </div>
+                    </div>
+
+                    <div class="error-meter">
+                        <div class="meter-label">
+                            <span>Prediction Error Magnitude</span>
+                            <span id="error-level">Very High</span>
+                        </div>
+                        <div class="meter-bar">
+                            <div class="meter-fill" id="error-fill" style="width: 90%; background: linear-gradient(90deg, var(--match), var(--error))"></div>
+                        </div>
+                    </div>
+
+                    <div class="qualia-output">
+                        <div class="qualia-label">Resulting Qualia</div>
+                        <p class="qualia-text" id="qualia-content">
+                            A jarring, stomach-dropping lurch. Momentary panic. Your heart rate spikes. The world feels suddenly unstable. You might gasp or grab for support. For a split second, your entire model of "where the ground is" was wrong—and your body responded to that error as a potential threat.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Everyday Examples -->
+        <section class="examples-section">
+            <div class="section-header">
+                <h2>🌍 Prediction Errors in Everyday Life</h2>
+                <p>Click each example to explore how prediction shapes your experience</p>
+            </div>
+
+            <div class="examples-grid">
+                <div class="example-card active" onclick="selectExample('change')">
+                    <div class="example-icon">👓</div>
+                    <div class="example-title">Change Blindness</div>
+                    <div class="example-desc">You don't notice huge changes because your brain predicts stability</div>
+                </div>
+                <div class="example-card" onclick="selectExample('gorilla')">
+                    <div class="example-icon">🦍</div>
+                    <div class="example-title">Inattentional Blindness</div>
+                    <div class="example-desc">You miss the gorilla because you're predicting basketballs</div>
+                </div>
+                <div class="example-card" onclick="selectExample('proofreading')">
+                    <div class="example-icon">📝</div>
+                    <div class="example-title">Proofreading Failures</div>
+                    <div class="example-desc">You read what you expect, not what's actually written</div>
+                </div>
+                <div class="example-card" onclick="selectExample('phantom')">
+                    <div class="example-icon">📱</div>
+                    <div class="example-title">Phantom Vibration</div>
+                    <div class="example-desc">You "feel" your phone buzz when it didn't</div>
+                </div>
+            </div>
+
+            <div class="example-detail active" id="detail-change">
+                <div class="detail-section">
+                    <div class="detail-title">What Happens</div>
+                    <p class="detail-content">In change blindness experiments, massive changes occur in images during brief disruptions (blinks, flickers)—and people don't notice. A building disappears. A person's shirt changes color. The background transforms. Yet subjects report seeing "no change."</p>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">Predictive Processing Explanation</div>
+                    <p class="detail-content">Your brain doesn't store detailed images of scenes—it stores predictions. If the prediction isn't violated at the attended location, no error signal is generated, so no "change" enters consciousness. You're not "seeing" the whole scene; you're predicting it and only updating where errors occur. The rest is filled in by your model.</p>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">The Qualia Insight</div>
+                    <p class="detail-content"><strong>Your rich, detailed visual experience is largely a hallucination constrained by reality.</strong> Most of what you "see" is prediction. Only prediction errors break through. This is why eyewitness testimony is unreliable—people report their predictions, not their perceptions.</p>
+                </div>
+            </div>
+
+            <div class="example-detail" id="detail-gorilla">
+                <div class="detail-section">
+                    <div class="detail-title">What Happens</div>
+                    <p class="detail-content">In the famous gorilla experiment, subjects count basketball passes. A person in a gorilla suit walks through the scene, beats their chest, walks off. About 50% of subjects don't see the gorilla at all.</p>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">Predictive Processing Explanation</div>
+                    <p class="detail-content">When you're counting passes, your brain is predicting "basketball-related motion." The gorilla doesn't match that prediction template, but it also doesn't violate the predictions you're actively tracking. Since attention is allocated to prediction errors in the task-relevant domain, the gorilla generates no attended error signal.</p>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">The Qualia Insight</div>
+                    <p class="detail-content"><strong>Attention is prediction-guided.</strong> You don't see what's there; you see what you're predicting. This has profound implications for everything from driving safety to racial bias—we literally don't perceive things that fall outside our predictive models.</p>
+                </div>
+            </div>
+
+            <div class="example-detail" id="detail-proofreading">
+                <div class="detail-section">
+                    <div class="detail-title">What Happens</div>
+                    <p class="detail-content">You read a sentence like "Paris in the the spring" and don't notice the repeated word. You proofread your own writing and miss obvious errors. The text seems correct even when it isn't.</p>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">Predictive Processing Explanation</div>
+                    <p class="detail-content">Reading is heavily prediction-driven. Your brain predicts the next word based on context. When the actual word is close enough to the prediction, the small error is suppressed—your brain "autocorrects" what you see to match what you expect. This is stronger for your own writing because you have stronger predictions about what you intended to write.</p>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">The Qualia Insight</div>
+                    <p class="detail-content"><strong>You perceive your predictions, not the text.</strong> Reading isn't passive reception—it's active prediction. This is why it's hard to proofread your own work and why taking a break helps: it weakens your predictions, allowing errors to generate surprise.</p>
+                </div>
+            </div>
+
+            <div class="example-detail" id="detail-phantom">
+                <div class="detail-section">
+                    <div class="detail-title">What Happens</div>
+                    <p class="detail-content">You feel your phone vibrate in your pocket. You check it. No notification. No vibration occurred. But the sensation felt completely real.</p>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">Predictive Processing Explanation</div>
+                    <p class="detail-content">If you frequently check your phone after vibrations, your brain develops a strong prior: "sensations in pocket region = phone vibration." When ambiguous sensory input occurs (slight muscle twitch, fabric movement), the prediction is strong enough to override reality. Your brain generates the qualia of vibration to match its expectation.</p>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">The Qualia Insight</div>
+                    <p class="detail-content"><strong>Perception is a controlled hallucination.</strong> When predictions are strong enough, they can generate qualia that aren't caused by external stimuli at all. The feeling was "real" to you—it just wasn't caused by the phone. This is normal perception working as designed, just misfiring slightly.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rubber Hand Illusion -->
+        <section class="illusion-section">
+            <div class="section-header">
+                <h2>🖐️ The Rubber Hand Illusion</h2>
+                <p>When prediction overrides reality so completely, you feel ownership of a fake hand</p>
+            </div>
+
+            <div class="illusion-steps">
+                <div class="illusion-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Setup</div>
+                    <p class="step-desc">Your real hand is hidden. A rubber hand is visible in front of you, positioned where your hand "should" be.</p>
+                </div>
+                <div class="illusion-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Synchronous Stroking</div>
+                    <p class="step-desc">Both your hidden real hand and the visible rubber hand are stroked simultaneously with paintbrushes.</p>
+                </div>
+                <div class="illusion-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Prediction Integration</div>
+                    <p class="step-desc">Your brain receives: visual input (seeing rubber hand stroked) + tactile input (feeling your hand stroked). It predicts these should match.</p>
+                </div>
+                <div class="illusion-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Ownership Transfer</div>
+                    <p class="step-desc">After ~2 minutes, you begin to feel the rubber hand is YOUR hand. When it's threatened, you flinch.</p>
+                </div>
+            </div>
+
+            <div class="illusion-explanation">
+                <h3>💡 Why This Happens</h3>
+                <p>Your brain's model of "where my body is" is itself a prediction, constantly updated by sensory input. When visual and tactile signals are synchronous and spatially plausible, the brain's best prediction is: "that rubber hand is mine." The model updates. Your sense of body ownership—which feels absolutely fundamental and certain—is revealed to be a prediction that can be hacked in minutes.</p>
+                <p><strong>The implications are staggering:</strong> Your sense of having a body, of being located in space, of owning your limbs—these aren't direct perceptions. They're predictions. This is why phantom limb pain exists, why anorexics misperceive their body size, and why virtual reality can feel so immersive.</p>
+            </div>
+        </section>
+
+        <!-- Clinical Connections -->
+        <section class="clinical-section">
+            <div class="section-header">
+                <h2>🏥 When Prediction Goes Wrong</h2>
+                <p>Many psychiatric conditions can be understood as predictive processing failures</p>
+            </div>
+
+            <div class="clinical-grid">
+                <div class="clinical-card schizophrenia">
+                    <div class="clinical-name">Schizophrenia</div>
+                    <div class="clinical-subtitle">Aberrant Prediction Error</div>
+                    <p class="clinical-explanation">In schizophrenia, the brain may generate prediction errors for things that aren't actually surprising—mundane events feel deeply significant. Or predictions about self-generated actions fail: inner speech isn't predicted, so it feels like it comes from outside. The efference copy that should cancel self-generated sensations doesn't work properly.</p>
+                    <div class="clinical-qualia">
+                        <div class="clinical-qualia-label">The Qualia Experience</div>
+                        <p class="clinical-qualia-text">"My own thoughts feel like someone else's voice. Random events feel meaningful, like messages meant for me. I can't tell what's coming from inside vs. outside my head."</p>
+                    </div>
+                </div>
+
+                <div class="clinical-card anxiety">
+                    <div class="clinical-name">Anxiety Disorders</div>
+                    <div class="clinical-subtitle">Overweighted Threat Predictions</div>
+                    <p class="clinical-explanation">Anxiety may involve priors that are too heavily weighted toward threat. The brain predicts danger where none exists, and these predictions feel like reality. Neutral situations generate error signals as if threats were present. The world genuinely feels dangerous because that's what the predictive model outputs.</p>
+                    <div class="clinical-qualia">
+                        <div class="clinical-qualia-label">The Qualia Experience</div>
+                        <p class="clinical-qualia-text">"Everything feels like it's about to go wrong. My body is constantly braced for disaster. I know rationally I'm safe, but I don't FEEL safe."</p>
+                    </div>
+                </div>
+
+                <div class="clinical-card autism">
+                    <div class="clinical-name">Autism Spectrum</div>
+                    <div class="clinical-subtitle">Different Prediction Weighting</div>
+                    <p class="clinical-explanation">One theory suggests autism involves altered precision weighting—prediction errors may be given too much weight, making the world feel overwhelming and unpredictable. Social cues may not generate reliable predictions, making social situations exhausting. Routines become crucial because they make the world predictable.</p>
+                    <div class="clinical-qualia">
+                        <div class="clinical-qualia-label">The Qualia Experience</div>
+                        <p class="clinical-qualia-text">"Everything is intense. Small changes feel huge. Social situations are exhausting because I can't predict what will happen. Routines make the world feel manageable."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Insight -->
+        <div class="insight-box">
+            <h3>🧠 The Key Insight</h3>
+            <p>
+                <strong>You don't experience the world. You experience your brain's predictions about the world, corrected by prediction errors.</strong> The "seamless reality" you inhabit is mostly hallucination—a model constructed by your brain, updated only where errors occur. This is why you can't tickle yourself (no error), why you miss the gorilla (no relevant error), why phantom limbs hurt (the model persists without input), and why schizophrenia involves voices (failed self-prediction). Consciousness isn't a window onto reality—it's a prediction machine that mistakes its own outputs for the world.
+            </p>
+        </div>
+
+        <!-- Qualia Reflection Section -->
+        <section class="qualia-section">
+            <h2>🪞 Qualia Reflection</h2>
+            <p class="qualia-intro">Now that you understand predictive processing, examine your own experience as prediction.</p>
+
+            <div class="qualia-prompts">
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 1: Your Predictive Qualia</div>
+                    <div class="prompt-question">Notice your predictions in action right now:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Can you feel your clothes touching your skin? You couldn't until you read this—why? What does that tell you about prediction and consciousness?</li>
+                        <li>Look away from the screen, then back. Did anything change in your peripheral vision that you didn't notice?</li>
+                        <li>Think of a time you were startled. What was the prediction that was violated? What did the error feel like?</li>
+                        <li>Have you experienced phantom phone vibrations? What does that tell you about the relationship between prediction and perception?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 2: Collaborative Elaboration</div>
+                    <div class="prompt-question">Compare prediction experiences with your group:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Do some people seem more "prediction-driven" than others? What might this mean neurologically?</li>
+                        <li>Compare experiences of surprise—does everyone describe the qualia of prediction error the same way?</li>
+                        <li>Has anyone had experiences where their predictions strongly overrode reality (phantom sensations, misperceptions, déjà vu)?</li>
+                        <li>How might different life experiences create different predictive models of the same situations?</li>
+                    </ul>
+                </div>
+
+                <div class="qualia-prompt">
+                    <div class="prompt-part">Part 3: Meta-Reflection</div>
+                    <div class="prompt-question">If consciousness is largely prediction:</div>
+                    <ul class="prompt-subquestions">
+                        <li>Can you ever perceive "reality itself," or only your model of it? What's the difference?</li>
+                        <li>If your sense of body ownership is a prediction, is your sense of "self" also a prediction? What would that mean?</li>
+                        <li>Does understanding predictive processing change how much you trust your own experience?</li>
+                        <li>If two people have different predictive models, are they living in the same reality?</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Neuroscience • Teaching neuroscience through subjective experience • Herr Prof. Dr. Awesome-Sauce</p>
+            <p style="margin-top: 8px; font-size: 0.75rem;">Consciousness is a prediction machine that mistakes its own outputs for the world.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Scenario data
+        const scenarios = {
+            stair: {
+                prediction: '"There will be one more stair step. Prepare leg muscles for impact at standard stair depth."',
+                input: 'Floor arrives 7 inches earlier than predicted. Unexpected impact force through leg.',
+                error: 'Very High',
+                errorWidth: 90,
+                qualia: 'A jarring, stomach-dropping lurch. Momentary panic. Your heart rate spikes. The world feels suddenly unstable. You might gasp or grab for support. For a split second, your entire model of "where the ground is" was wrong—and your body responded to that error as a potential threat.'
+            },
+            orange: {
+                prediction: '"This liquid will be milk. Expect: white color, creamy texture, mild sweet taste, cool temperature."',
+                input: 'Orange juice: orange color, acidic, sweet-sour taste, cold. Almost nothing matches prediction.',
+                error: 'Extreme',
+                errorWidth: 100,
+                qualia: 'Disgust. Confusion. A visceral "wrongness" that makes you want to spit it out—even though you like orange juice! The qualia of disgust isn\'t about the juice being bad; it\'s about the massive prediction error. Your brain flags "unexpected substance in mouth" as potentially dangerous.'
+            },
+            name: {
+                prediction: '"Background noise at party. No personally relevant information. Continue current conversation."',
+                input: 'Your name detected in auditory stream. High personal relevance despite low volume.',
+                error: 'High',
+                errorWidth: 80,
+                qualia: 'Sudden attention capture. Your head turns automatically. The background noise that was "not there" suddenly contains a signal. This is the "cocktail party effect"—your brain is always predicting and monitoring for self-relevant information, even in "unattended" channels.'
+            },
+            typo: {
+                prediction: '"This sentence will follow standard grammar and spelling. Words will match expected patterns."',
+                input: 'Sentence contains repeated word or misspelling that violates prediction—but violation is small.',
+                error: 'Low (Suppressed)',
+                errorWidth: 25,
+                qualia: 'Nothing. You read the sentence as correct. The prediction was strong enough, and the error small enough, that your brain "autocorrected" the input to match expectation. You literally perceived something that wasn\'t there. Only when someone points it out does the error register.'
+            },
+            face: {
+                prediction: '"Scanning crowd for known faces. Strong prior for friend\'s face due to context (their neighborhood)."',
+                input: 'Face with ~60% similarity to friend. Prediction fills in the missing 40%.',
+                error: 'Initially Low → High',
+                errorWidth: 60,
+                qualia: 'Recognition! Excitement! You wave—and then slowly realize it\'s a stranger. Embarrassment floods in as prediction error accumulates. For a moment, you genuinely SAW your friend. Your brain\'s prediction literally constructed their face from ambiguous input.'
+            }
+        };
+
+        function selectScenario(id) {
+            // Update button states
+            document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Update content
+            const data = scenarios[id];
+            document.getElementById('prediction-content').textContent = data.prediction;
+            document.getElementById('input-content').textContent = data.input;
+            document.getElementById('error-level').textContent = data.error;
+            document.getElementById('error-fill').style.width = data.errorWidth + '%';
+            document.getElementById('qualia-content').textContent = data.qualia;
+
+            // Update error bar color based on level
+            const fill = document.getElementById('error-fill');
+            if (data.errorWidth < 40) {
+                fill.style.background = 'var(--match)';
+            } else if (data.errorWidth < 70) {
+                fill.style.background = 'linear-gradient(90deg, var(--match), var(--attention))';
+            } else {
+                fill.style.background = 'linear-gradient(90deg, var(--attention), var(--error))';
+            }
+        }
+
+        // Example cards
+        function selectExample(id) {
+            // Update card states
+            document.querySelectorAll('.example-card').forEach(card => card.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Update detail visibility
+            document.querySelectorAll('.example-detail').forEach(detail => detail.classList.remove('active'));
+            document.getElementById('detail-' + id).classList.add('active');
+        }
+    </script>
+</body>
+</html>
